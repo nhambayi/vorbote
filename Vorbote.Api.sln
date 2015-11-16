@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Api", "Vorbote.Api\Vorbote.Api.csproj", "{A6905DAA-F0C2-4FC2-B2EB-78B875DE8D3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Sdk", "Vorbote.Sdk\Vorbote.Sdk.csproj", "{7C404DF7-52D6-48C1-992D-F4D410AED149}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoqMail.Api", "MoqMail.Api\MoqMail.Api.csproj", "{F8738209-31C0-4D6C-9A6E-AA9F081467F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6905DAA-F0C2-4FC2-B2EB-78B875DE8D3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6905DAA-F0C2-4FC2-B2EB-78B875DE8D3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6905DAA-F0C2-4FC2-B2EB-78B875DE8D3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6905DAA-F0C2-4FC2-B2EB-78B875DE8D3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C404DF7-52D6-48C1-992D-F4D410AED149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C404DF7-52D6-48C1-992D-F4D410AED149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C404DF7-52D6-48C1-992D-F4D410AED149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C404DF7-52D6-48C1-992D-F4D410AED149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8738209-31C0-4D6C-9A6E-AA9F081467F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8738209-31C0-4D6C-9A6E-AA9F081467F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8738209-31C0-4D6C-9A6E-AA9F081467F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8738209-31C0-4D6C-9A6E-AA9F081467F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
