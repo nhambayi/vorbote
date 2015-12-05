@@ -3,13 +3,9 @@
     using Microsoft.Azure.Documents;
     using Microsoft.Azure.Documents.Client;
     using Microsoft.Azure.Documents.Linq;
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class AccountsRepository
     {
@@ -17,11 +13,11 @@
         private string _authkey;
         private DocumentClient _client;
         private Database _database;
+        private DocumentCollection _documentCollection;
+        private static AccountsRepository _instance;
+
         private const string DATABASE_NAME = "moqmail";
         private const string COLLECTION_NAME = "moqmail";
-        private DocumentCollection _documentCollection;
-
-        private static AccountsRepository _instance;
 
         public static AccountsRepository Instance
         {
@@ -36,13 +32,10 @@
             }
         }
 
-
         public AccountsRepository()
         {
             Init();
         }
-
-        
 
         private void Init()
         {
