@@ -1,16 +1,16 @@
-﻿using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vorbote.Models;
-using Microsoft.Azure.Documents.Linq;
-
-namespace Vorbote
+﻿namespace Vorbote
 {
+    using Microsoft.Azure.Documents;
+    using Microsoft.Azure.Documents.Client;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Vorbote.Models;
+    using Microsoft.Azure.Documents.Linq;
+
     public class MailRepository
     {
         private  string _endpointUrl = "<your endpoint URI>";

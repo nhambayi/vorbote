@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net;
-using System.Net.Sockets;
-using System.IO;
-using Vorbote.Models;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Authentication;
-
-namespace Vorbote
+﻿namespace Vorbote
 {
+    using System;
+    using System.Text;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.IO;
+    using Vorbote.Models;
+    using System.Net.Security;
+    using System.Security.Cryptography.X509Certificates;
+    using System.Security.Authentication;
+    using MimeKit;
+
     public class Server
     {
         public int Port { get; private set; }
@@ -169,18 +167,25 @@ namespace Vorbote
                         if (counter == 1000000)
                         {
                             networkStream.Close();
-                            return;  // Seriously? 1 million lines in a message?
+                            return; 
                         }
                     }
                         Console.WriteLine("Received message:");
                         writer.WriteLine("250 OK");
-                    writer.Flush();
+                        writer.Flush();
 
                         response = reader.ReadLine();
-                        // Insert "message" into DB
-                        emailMessage.Body = message.ToString();
-                        MailRepository repo = new MailRepository();
-                        repo.SaveMessage(emailMessage);
+                        
+                        var messageBody = message.ToString();
+                        var repo = new MailStorage();
+                        var key = repo.Storage("default", messageBody);
+
+                        using (var stream = MailStorage.GetStream(messageBody))
+                        {
+                            var parser = new MimeParser(stream);
+                            var mimeMessage = parser.ParseMessage();
+                        }
+
                         if(response.ToUpper() == "RSET")
                         {
                             writer.WriteLine("250 OK");
@@ -189,11 +194,6 @@ namespace Vorbote
                     }
                     while (response.ToUpper() == "RSET") ;
                     networkStream.Close();
-                    
-
-                    
-                    
-
                 }
             }
 

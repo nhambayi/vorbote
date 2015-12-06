@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Vorbote.Models
+﻿namespace Vorbote.Models
 {
+    using System;
+
     public interface IMailMessage
     {
         string Body { get; set; }
