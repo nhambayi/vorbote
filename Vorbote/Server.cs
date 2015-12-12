@@ -10,6 +10,8 @@
     using System.Security.Cryptography.X509Certificates;
     using System.Security.Authentication;
     using MimeKit;
+    using Accounts;
+    using System.Threading.Tasks;
 
     public class Server
     {
@@ -54,8 +56,9 @@
             }
         }
 
-        private void StartSession(TcpClient client)
+        private async Task StartSession(TcpClient client)
         {
+            string username = null;
             Console.WriteLine("Connection accepted!");
             NetworkStream networkStream = client.GetStream();
             bool leaveInnerStreamOpen = true;
@@ -103,7 +106,10 @@
                     {
                         writer.WriteLine("334 VXNlcm5hbWU6");
                         writer.Flush();
-                        var username = reader.ReadLine();
+                        var encodedUsername = reader.ReadLine();
+                        var data = Convert.FromBase64String( encodedUsername);
+                        username = Encoding.UTF8.GetString(data);
+
                         writer.WriteLine("334 UGFzc3dvcmQ6");
                         writer.Flush();
                         var password = reader.ReadLine();
@@ -175,10 +181,14 @@
                         writer.Flush();
 
                         response = reader.ReadLine();
-                        
+
+                        DocumentDbMailBoxRepositry db = new DocumentDbMailBoxRepositry();
+                        await db.Initialize();
+
+                        var mailBox = db.GetMailBox(username);
                         var messageBody = message.ToString();
                         var repo = new MailStorage();
-                        var key = repo.Storage("default", messageBody);
+                        var key = repo.Storage(mailBox.id, messageBody);
 
                         using (var stream = MailStorage.GetStream(messageBody))
                         {

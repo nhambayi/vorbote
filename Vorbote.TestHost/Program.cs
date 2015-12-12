@@ -14,7 +14,7 @@ namespace Vorbote.TestHost
             DocumentDbMailBoxRepositry db = new DocumentDbMailBoxRepositry();
             db.Initialize();
 
-            db.CreateMailBox("noahhambayi", "password1");
+            var mail = db.GetMailBox("noahhambayi");
             Server server = new Server(true);
 
             server.Init();

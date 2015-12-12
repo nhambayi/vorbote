@@ -76,6 +76,7 @@
         {
             MailBox mailBox = new MailBox()
             {
+                id = username,
                 Username = username,
                 Password = password
             };
@@ -110,6 +111,16 @@
         public MailBox UpdateMailBox(string username)
         {
             return null;
+        }
+
+        public void AddMailItem()
+        {
+
+        }
+
+        public void DeleteMailItem()
+        {
+
         }
     }
 }
