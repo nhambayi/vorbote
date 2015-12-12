@@ -12,6 +12,7 @@
     using MimeKit;
     using Accounts;
     using System.Threading.Tasks;
+    using System.Diagnostics;
 
     public class Server
     {
@@ -33,6 +34,11 @@
             this.TlsRequired = requireTls;
         }
 
+        public Server(string ipAddress, string hostname, int port, bool tlsRequired)
+        {
+            
+        }
+
         public void Init()
         {
             Port = 443;
@@ -50,7 +56,7 @@
 
             while (true)
             {
-                Console.WriteLine("Ready...");
+                Debug.WriteLine("Ready...");
                 client = listener.AcceptTcpClient();
                 StartSession(client);
             }
@@ -59,7 +65,7 @@
         private async Task StartSession(TcpClient client)
         {
             string username = null;
-            Console.WriteLine("Connection accepted!");
+            Debug.WriteLine("Connection accepted!");
             NetworkStream networkStream = client.GetStream();
             bool leaveInnerStreamOpen = true;
 
@@ -234,7 +240,6 @@
         private  bool ClientValidationCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             Console.WriteLine("Client's authentication succeeded ...\n");
-
             return true;
         }
     }
