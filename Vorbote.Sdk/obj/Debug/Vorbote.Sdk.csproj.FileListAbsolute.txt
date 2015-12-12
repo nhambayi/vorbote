@@ -1,9 +1,0 @@
-C:\Users\noah\projects\project-newhouse\api\Vorbote.Api\Vorbote.Sdk\bin\Debug\Vorbote.Sdk.dll
-C:\Users\noah\projects\project-newhouse\api\Vorbote.Api\Vorbote.Sdk\bin\Debug\Vorbote.Sdk.pdb
-C:\Users\noah\projects\project-newhouse\api\Vorbote.Api\Vorbote.Sdk\bin\Debug\Microsoft.Azure.Documents.Client.dll
-C:\Users\noah\projects\project-newhouse\api\Vorbote.Api\Vorbote.Sdk\bin\Debug\Newtonsoft.Json.dll
-C:\Users\noah\projects\project-newhouse\api\Vorbote.Api\Vorbote.Sdk\bin\Debug\Microsoft.Azure.Documents.Client.xml
-C:\Users\noah\projects\project-newhouse\api\Vorbote.Api\Vorbote.Sdk\bin\Debug\Newtonsoft.Json.xml
-C:\Users\noah\projects\project-newhouse\api\Vorbote.Api\Vorbote.Sdk\obj\Debug\Vorbote.Sdk.csprojResolveAssemblyReference.cache
-C:\Users\noah\projects\project-newhouse\api\Vorbote.Api\Vorbote.Sdk\obj\Debug\Vorbote.Sdk.dll
-C:\Users\noah\projects\project-newhouse\api\Vorbote.Api\Vorbote.Sdk\obj\Debug\Vorbote.Sdk.pdb
