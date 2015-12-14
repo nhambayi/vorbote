@@ -3,24 +3,24 @@
     using Microsoft.Azure.Documents;
     using Microsoft.Azure.Documents.Client;
     using System;
-    using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
-    using Vorbote.Models;
+    using Models;
     using Microsoft.Azure.Documents.Linq;
+    using System.IO;
 
-    public class MailRepository
+    public class DocumentDbMailStore
     {
-        private  string _endpointUrl = "<your endpoint URI>";
-        private  string _authorizationKey = "<your key>";
-        private DocumentClient _client;
-        private string _defaultDatabaseName  = "moqmail";
+        private  string _endpointUrl;
+        private  string _authorizationKey;
+        private string _defaultDatabaseName = "moqmail";
         private string _defaultCollectionName = "moqmail";
+
+        private DocumentClient _client;
         private Database _database;
 
-        public MailRepository()
+        public DocumentDbMailStore()
         {
             Init();
         }
@@ -34,11 +34,38 @@
                 .Where(db => db.Id == _defaultDatabaseName).AsEnumerable().FirstOrDefault();
         }
 
-        public void SaveMessage(IMailMessage message)
+        public Task SaveMessageAsync(IMailMessage messageHeader)
         {
-            DocumentCollection documentCollection = _client.CreateDocumentCollectionQuery("dbs/" 
-                + _database.Id).Where(c => c.Id == _defaultCollectionName).AsEnumerable().FirstOrDefault();
-            _client.CreateDocumentAsync("dbs/" + _database.Id + "/colls/" + documentCollection.Id, message);
+            return Task.Factory.StartNew(() => 
+           {
+                SaveMessage(message, messageHeader);
+            });
+        }
+
+        public void SaveMessage(IMailMessage message, IMailMessage messageHeader)
+        {
+            var collectionUri = string.Format("dbs/{0}", _database.Id);
+            DocumentCollection documentCollection = _client.CreateDocumentCollectionQuery(collectionUri).Where(c =>
+            c.Id == _defaultCollectionName).AsEnumerable().FirstOrDefault();
+
+            var documentUri = string.Format("dbs/{0}/colls/{1}", _database.Id, documentCollection.Id);
+
+            _client.CreateDocumentAsync(documentUri, messageHeader).ContinueWith((response) =>
+            {
+                FileStream fileStream = File.Open("", FileMode.Open);
+                CreateDocumentAttachment(response.Result.Resource, fileStream);
+            });
+        }
+
+        private void CreateDocumentAttachment(Document document, Stream messageStream)
+        {
+            var mediaOptions = new MediaOptions
+            {
+                ContentType = "application/pdf",
+                Slug = "something.pdf"
+            };
+
+            _client.CreateAttachmentAsync(document.SelfLink, messageStream, mediaOptions);
         }
     }
 }

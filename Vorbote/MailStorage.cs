@@ -3,13 +3,13 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Vorbote
 {
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class MailStorage
     {
         public string Storage(string containerName, string messageBody)
@@ -62,6 +62,4 @@ namespace Vorbote
             return key;
         }
     }
-
-
 }
