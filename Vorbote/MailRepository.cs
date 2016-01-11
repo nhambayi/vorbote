@@ -38,7 +38,7 @@
         {
             return Task.Factory.StartNew(() => 
            {
-                SaveMessage(message, messageHeader);
+                SaveMessage(messageHeader, messageHeader);
             });
         }
 
