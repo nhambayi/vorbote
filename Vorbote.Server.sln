@@ -13,6 +13,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Accounts", "Vorbote
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Configuration", "Vorbote.Configuration\Vorbote.Configuration.csproj", "{F1D11361-DD25-4650-9C06-F4279F30C789}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{07E83860-39F3-48F2-9CCA-52F9B33D09B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Hosting", "Vorbote.Hosting\Vorbote.Hosting.csproj", "{69725E6D-F239-4E33-B9C0-6DF42BB10456}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosting", "Hosting", "{A188BFD0-3215-4CE7-91FA-711C36A66C5E}"
+EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Vorbote.Hosting.CloudServiceHost", "Vorbote.Hosting.CloudServiceHost\Vorbote.Hosting.CloudServiceHost.ccproj", "{3E86C6DE-8A83-4036-9A82-DF09115BF3B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VorboteHostingRole", "VorboteHostingRole\VorboteHostingRole.csproj", "{18C044D6-A6AC-4245-BD2C-FFE6A9A65EBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,8 +49,26 @@ Global
 		{F1D11361-DD25-4650-9C06-F4279F30C789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1D11361-DD25-4650-9C06-F4279F30C789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1D11361-DD25-4650-9C06-F4279F30C789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69725E6D-F239-4E33-B9C0-6DF42BB10456}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69725E6D-F239-4E33-B9C0-6DF42BB10456}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69725E6D-F239-4E33-B9C0-6DF42BB10456}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69725E6D-F239-4E33-B9C0-6DF42BB10456}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E86C6DE-8A83-4036-9A82-DF09115BF3B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E86C6DE-8A83-4036-9A82-DF09115BF3B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E86C6DE-8A83-4036-9A82-DF09115BF3B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E86C6DE-8A83-4036-9A82-DF09115BF3B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18C044D6-A6AC-4245-BD2C-FFE6A9A65EBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18C044D6-A6AC-4245-BD2C-FFE6A9A65EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18C044D6-A6AC-4245-BD2C-FFE6A9A65EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18C044D6-A6AC-4245-BD2C-FFE6A9A65EBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{05F03DFB-BF9E-4A3F-9F92-75BE6F607CE9} = {A188BFD0-3215-4CE7-91FA-711C36A66C5E}
+		{69725E6D-F239-4E33-B9C0-6DF42BB10456} = {A188BFD0-3215-4CE7-91FA-711C36A66C5E}
+		{3E86C6DE-8A83-4036-9A82-DF09115BF3B9} = {A188BFD0-3215-4CE7-91FA-711C36A66C5E}
+		{18C044D6-A6AC-4245-BD2C-FFE6A9A65EBF} = {A188BFD0-3215-4CE7-91FA-711C36A66C5E}
 	EndGlobalSection
 EndGlobal
