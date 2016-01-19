@@ -1,17 +1,8 @@
 ﻿namespace Vorbote
 {
     using System;
-    using System.Text;
     using System.Net;
     using System.Net.Sockets;
-    using System.IO;
-    using Vorbote.Models;
-    using System.Net.Security;
-    using System.Security.Cryptography.X509Certificates;
-    using System.Security.Authentication;
-    using MimeKit;
-    using Accounts;
-    using System.Threading.Tasks;
     using System.Diagnostics;
 
     public class Server
@@ -62,7 +53,5 @@
                 session.StartSessionAsync();
             }
         }
-
-        
     }
 }

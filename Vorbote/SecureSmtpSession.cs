@@ -188,11 +188,12 @@
 
                 var messageBody = message.ToString();
 
+                MailStorage.Save("containername", messageBody);
 
                 using (var stream = MailStorage.GetStream(messageBody))
                 {
                     var parser = new MimeParser(stream);
-                    var mimeMessage = parser.ParseMessage();
+                    var headers = parser.ParseMessage();
                 }
 
                 if (response.ToUpper() == "RSET")
@@ -218,7 +219,7 @@
             bool leaveInnerStreamOpen = true;
             EncryptionPolicy encryptionPolicy = EncryptionPolicy.AllowNoEncryption;
             SslStream sslStream = new SslStream(networkStream, leaveInnerStreamOpen, validationCallback, selectionCallback, encryptionPolicy);
-            ServerSideHandshake(sslStream);
+            ServerSideHandshake(sslStream, false, false);
 
             _writer = new StreamWriter(sslStream);
             _reader = new StreamReader(sslStream);
@@ -226,13 +227,10 @@
             return sslStream;
         }
 
-        private void ServerSideHandshake(SslStream sslStream)
+        private void ServerSideHandshake(SslStream sslStream, bool requireClientCertificate, bool checkCertificateRevocation)
         {
             X509Certificate certificate = GetServerCertificate();
-
-            bool requireClientCertificate = false;
             SslProtocols enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
-            bool checkCertificateRevocation = false;
             sslStream.AuthenticateAsServer
               (certificate, requireClientCertificate, enabledSslProtocols, checkCertificateRevocation);
         }

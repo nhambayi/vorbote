@@ -12,7 +12,7 @@ namespace Vorbote
 
     public class MailStorage
     {
-        public string Storage(string containerName, string messageBody)
+        public static string Save(string containerName, string messageBody)
         {
             string accountName = "vorbotestoragedev";
             string accountKey = "Cc9pujEsETK4kP25F3T4lE1Kw8yAFxVCaD8xkrXrXtaLJUhCcY+9wA4BdQneqaF3omnmhsVowNCpfQQ1tq4+8w==";
