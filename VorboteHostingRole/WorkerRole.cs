@@ -25,6 +25,10 @@ namespace VorboteHostingRole
 
             try
             {
+                _server = new Server(true);
+
+                _server.Init();
+                _server.Start();
                 this.RunAsync(this.cancellationTokenSource.Token).Wait();
             }
             finally
@@ -40,12 +44,6 @@ namespace VorboteHostingRole
 
             // For information on handling configuration changes
             // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
-
-            _server = new Server(true);
-
-            _server.Init();
-            _server.Start();
-
             bool result = base.OnStart();
 
             Trace.TraceInformation("VorboteHostingRole has been started");

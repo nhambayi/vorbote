@@ -14,7 +14,7 @@
     using System.Threading.Tasks;
     using System.Diagnostics;
 
-    public class SecureSmtpSession
+    public class SecureSmtpSession : IDisposable
     {
         public NetworkStream _networkStream;
         private SslStream _sslStream;
@@ -29,6 +29,30 @@
         public Task StartSessionAsync()
         {
             return Task.Factory.StartNew(() => StartSession(_networkStream));
+        }
+
+        public void Dispose()
+        {
+            if (_networkStream != null)
+            {
+                _networkStream.Dispose();
+                _networkStream = null;
+            }
+            if (_sslStream != null)
+            {
+                _sslStream.Dispose();
+                _sslStream = null;
+            }
+            if (_writer != null)
+            {
+                _writer.Dispose();
+                _writer = null;
+            }
+            if (_reader != null)
+            {
+                _reader.Dispose();
+                _reader = null;
+            }
         }
 
         private void Send(params string[] messages)
@@ -68,7 +92,7 @@
             }
         }
 
-        private bool ValidateRecipientMessage(string senderMessage)
+        private static bool ValidateRecipientMessage(string senderMessage)
         {
             if (!senderMessage.ToUpper().StartsWith("MAIL FROM:"))
             {
@@ -188,7 +212,7 @@
 
                 var messageBody = message.ToString();
 
-                MailStorage.Save("containername", messageBody);
+                MailStorage.Save(username, messageBody);
 
                 using (var stream = MailStorage.GetStream(messageBody))
                 {
@@ -227,7 +251,7 @@
             return sslStream;
         }
 
-        private void ServerSideHandshake(SslStream sslStream, bool requireClientCertificate, bool checkCertificateRevocation)
+        private static void ServerSideHandshake(SslStream sslStream, bool requireClientCertificate, bool checkCertificateRevocation)
         {
             X509Certificate certificate = GetServerCertificate();
             SslProtocols enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
@@ -235,7 +259,7 @@
               (certificate, requireClientCertificate, enabledSslProtocols, checkCertificateRevocation);
         }
 
-        protected X509Certificate GetServerCertificate()
+        protected static X509Certificate GetServerCertificate()
         {
             var cert = new X509Certificate2(@"c:\temp\server.pfx", "ready2go");
             return cert;
