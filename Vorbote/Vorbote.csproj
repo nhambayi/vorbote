@@ -96,13 +96,15 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Vorbote.Accounts\Vorbote.Accounts.csproj">
       <Project>{472d4f7c-b94d-4817-b6bb-06b317ed2e05}</Project>
       <Name>Vorbote.Accounts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vorbote.Configuration\Vorbote.Configuration.csproj">
+      <Project>{f1d11361-dd25-4650-9c06-f4279f30c789}</Project>
+      <Name>Vorbote.Configuration</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

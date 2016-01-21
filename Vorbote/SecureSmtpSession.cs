@@ -13,6 +13,7 @@
     using Accounts;
     using System.Threading.Tasks;
     using System.Diagnostics;
+    using Configuration;
 
     public class SecureSmtpSession : IDisposable
     {
@@ -253,16 +254,10 @@
 
         private static void ServerSideHandshake(SslStream sslStream, bool requireClientCertificate, bool checkCertificateRevocation)
         {
-            X509Certificate certificate = GetServerCertificate();
+            X509Certificate certificate = SmtpServerConfiguration.SslCertificate;
             SslProtocols enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
             sslStream.AuthenticateAsServer
               (certificate, requireClientCertificate, enabledSslProtocols, checkCertificateRevocation);
-        }
-
-        protected static X509Certificate GetServerCertificate()
-        {
-            var cert = new X509Certificate2(@"c:\temp\server.pfx", "ready2go");
-            return cert;
         }
 
         public static X509Certificate ServerCertificateSelectionCallback(object sender, string targetHost, X509CertificateCollection localCertificates, X509Certificate remoteCertificate, string[] acceptableIssuers)
