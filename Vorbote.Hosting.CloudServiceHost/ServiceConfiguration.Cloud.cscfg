@@ -7,7 +7,6 @@
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Certificate1" thumbprint="989E9DB09FA84FEFE9A912E8A29C4D2A9F8A271A" thumbprintAlgorithm="sha1" />
-      <Certificate name="Certificate2" thumbprint="529502D6CD8032FBD953BF0CC6559E60B46ECA32" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
 </ServiceConfiguration>
