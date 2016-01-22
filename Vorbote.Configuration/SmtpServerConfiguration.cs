@@ -9,6 +9,7 @@
 
     public class SmtpServerConfiguration
     {
+        private string _storageAccountKey;
         private static X509Certificate _sslCertificate;
 
         public static string CertificateThumbprint
@@ -27,6 +28,13 @@
             }
         }
 
+        public static string QueueName
+        {
+            get
+            {
+                return "myqueue";
+            }
+        }
         public static X509Certificate SslCertificate
         {
             get
@@ -82,6 +90,23 @@
             }
         }
 
+        public static string StorageAccountName
+        {
+            get
+            {
+                return "vorbotedevstore";
+            }
+        }
+
+
+        public static string StorageAccountKey
+        {
+            get
+            {
+                return "gzv1viKgSoKy8cdpCwk3p7eRadSgnuMk9rashX2OCvqInMMEFrtUs2rLvHWK4Hi2hkhv5CeZWLBjKxGGI82oqw==";
+            }
+        }
+        
         public static bool RequireSsl
         {
             get

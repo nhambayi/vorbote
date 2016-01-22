@@ -213,12 +213,14 @@
 
                 var messageBody = message.ToString();
 
-                MailStorage.Save(username, messageBody);
+               string key = MailStorage.Save(username, messageBody);
 
                 using (var stream = MailStorage.GetStream(messageBody))
                 {
                     var parser = new MimeParser(stream);
-                    var headers = parser.ParseMessage();
+                    HeaderList headers = parser.ParseHeaders();
+
+                    MailStorage.QueueMessage(key, username, headers);
                 }
 
                 if (response.ToUpper() == "RSET")

@@ -1,29 +1,46 @@
-﻿using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
-using System;
-using System.Collections.Generic;
-namespace Vorbote
+﻿namespace Vorbote
 {
     using System.IO;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using Configuration;
+    using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Auth;
+    using Microsoft.WindowsAzure.Storage.Blob;
+    using System;
+    using System.Collections.Generic;
+    using Microsoft.WindowsAzure.Storage.Queue;
+    using System.Diagnostics;
+    using MimeKit;
+    using Newtonsoft.Json;
 
     public class MailStorage
     {
+        private static CloudStorageAccount _storageAccount;
+
+        public static CloudStorageAccount StorageAccount
+        {
+            get
+            {
+                if (_storageAccount == null)
+                {
+                    string accountName = SmtpServerConfiguration.StorageAccountName;
+                    string accountKey = SmtpServerConfiguration.StorageAccountKey;
+                    StorageCredentials creds = new StorageCredentials(accountName, accountKey);
+                    _storageAccount = new CloudStorageAccount(creds, useHttps: true); 
+                }
+
+                return _storageAccount;
+            }
+        }
+
         public static string Save(string containerName, string messageBody)
         {
-            string accountName = "vorbotestoragedev";
-            string accountKey = "Cc9pujEsETK4kP25F3T4lE1Kw8yAFxVCaD8xkrXrXtaLJUhCcY+9wA4BdQneqaF3omnmhsVowNCpfQQ1tq4+8w==";
-
             try
             {
                 string filekey = GenerateFileKey();
-                StorageCredentials creds = new StorageCredentials(accountName, accountKey);
-                CloudStorageAccount account = new CloudStorageAccount(creds, useHttps: true);
+                
 
-                CloudBlobClient client = account.CreateCloudBlobClient();
+                CloudBlobClient client = StorageAccount.CreateCloudBlobClient();
 
                 CloudBlobContainer sampleContainer = client.GetContainerReference(containerName);
                 sampleContainer.CreateIfNotExists();
@@ -37,11 +54,55 @@ namespace Vorbote
                 }
 
                 return filekey;
-
             }
             catch (Exception ex)
             {
+                Trace.WriteLine(ex.Message);
                 throw;
+            }
+        }
+
+        public async static void QueueMessage(string id, string account, HeaderList headers)
+        {
+            var queueClient = StorageAccount.CreateCloudQueueClient();
+            CloudQueue queue = queueClient.GetQueueReference(SmtpServerConfiguration.QueueName);
+
+            try
+            {
+                queue.CreateIfNotExists();
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.Message);
+            }
+
+            List<EmailHeader> headerList = new List<EmailHeader>();
+
+            foreach(var header in headers)
+            {
+
+
+
+            }
+
+
+            var newMessage = new EmailReceivedMessage()
+            {
+                Account = account,
+                MessageKey = id
+            };
+
+            var data = ByteArraySerializer<EmailReceivedMessage>.Serialize(newMessage);
+
+            CloudQueueMessage message = new CloudQueueMessage(data);
+            try
+            {
+                await queue.AddMessageAsync(message);
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.Message);
+                //throw;
             }
         }
 
