@@ -25,16 +25,17 @@
             this.TlsRequired = requireTls;
         }
 
-        public Server(string ipAddress, string hostname, int port, bool tlsRequired)
+        public Server(IPAddress ipAddress, string hostname, int port, bool tlsRequired)
         {
-            
+            Port = port;
+            Address = ipAddress;
+            HostName = hostname;
+            TlsRequired = tlsRequired;
         }
 
         public void Init()
         {
-            Port = 443;
-            Address = IPAddress.Parse("127.0.0.1");
-            HostName = "localhost";
+            
         }
 
         public void Start()

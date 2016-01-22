@@ -10,6 +10,7 @@ using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage;
 using Vorbote;
+using Vorbote.Configuration;
 
 namespace VorboteHostingRole
 {
@@ -25,9 +26,12 @@ namespace VorboteHostingRole
 
             try
             {
-                _server = new Server(true);
-
-                _server.Init();
+                _server = new Server(
+                    SmtpServerConfiguration.PublicAddress,
+                    SmtpServerConfiguration.HostName,
+                    SmtpServerConfiguration.SmtpPort,
+                    SmtpServerConfiguration.RequireSsl);
+      
                 _server.Start();
                 this.RunAsync(this.cancellationTokenSource.Token).Wait();
             }

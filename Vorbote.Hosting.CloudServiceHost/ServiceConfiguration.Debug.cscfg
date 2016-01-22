@@ -3,7 +3,7 @@
   <Role name="VorboteHostingRole">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=vorbotedevstore;AccountKey=/Q9JORCHewSIwP9ykxNgmCMwpnHi+0RmFeTlzBulN6cfzJ3LrYBjnw3AoDiHCoTzcqRcgoaxS5V06SU4PffJfQ==" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Certificate1" thumbprint="989E9DB09FA84FEFE9A912E8A29C4D2A9F8A271A" thumbprintAlgorithm="sha1" />
