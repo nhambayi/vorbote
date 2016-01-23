@@ -48,6 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs" />
+    <Compile Include="AccountUser.cs" />
+    <Compile Include="IAccount.cs" />
+    <Compile Include="IAccountRepository.cs" />
+    <Compile Include="IAccountUser.cs" />
     <Compile Include="IMailBoxRepositry.cs" />
     <Compile Include="MailBox.cs" />
     <Compile Include="DocumentDbMailBoxRepositry.cs" />

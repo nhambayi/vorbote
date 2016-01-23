@@ -85,7 +85,6 @@
             }
             else
             {
-
                 var recipient = senderMessage.Replace("RCPT TO:", string.Empty).Trim();
                 string recipientAcknowledgement = string.Format("250 {0} I like that guy too!", recipient);
                 Send(recipientAcknowledgement);

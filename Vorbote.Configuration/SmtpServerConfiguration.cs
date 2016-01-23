@@ -35,6 +35,7 @@
                 return "myqueue";
             }
         }
+
         public static X509Certificate SslCertificate
         {
             get
