@@ -253,20 +253,31 @@
             return sslStream;
         }
 
-        private static void ServerSideHandshake(SslStream sslStream, bool requireClientCertificate, bool checkCertificateRevocation)
+        private static void ServerSideHandshake(
+            SslStream sslStream, 
+            bool requireClientCertificate, 
+            bool checkCertificateRevocation)
         {
             X509Certificate certificate = SmtpServerConfiguration.SslCertificate;
             SslProtocols enabledSslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls;
-            sslStream.AuthenticateAsServer
-              (certificate, requireClientCertificate, enabledSslProtocols, checkCertificateRevocation);
+            sslStream.AuthenticateAsServer(certificate, requireClientCertificate, enabledSslProtocols, checkCertificateRevocation);
         }
 
-        public static X509Certificate ServerCertificateSelectionCallback(object sender, string targetHost, X509CertificateCollection localCertificates, X509Certificate remoteCertificate, string[] acceptableIssuers)
+        public static X509Certificate ServerCertificateSelectionCallback(
+            object sender, 
+            string targetHost, 
+            X509CertificateCollection localCertificates, 
+            X509Certificate remoteCertificate, 
+            string[] acceptableIssuers)
         {
             return localCertificates[0];
         }
 
-        private bool ClientValidationCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        private bool ClientValidationCallback(
+            object sender, 
+            X509Certificate certificate, 
+            X509Chain chain, 
+            SslPolicyErrors sslPolicyErrors)
         {
             Debug.WriteLine("Client's authentication succeeded ...\n");
             return true;

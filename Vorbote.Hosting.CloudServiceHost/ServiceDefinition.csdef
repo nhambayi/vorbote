@@ -5,10 +5,11 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
     </ConfigurationSettings>
     <Endpoints>
-      <InputEndpoint name="smtpSsl" protocol="tcp" localPort="443" port="443"/>
+      <InputEndpoint name="smtpSsl" protocol="tcp" localPort="443" port="443" />
     </Endpoints>
     <Certificates>
       <Certificate name="Certificate1" storeLocation="LocalMachine" storeName="My" />
+      <Certificate name="Certificate2" storeLocation="LocalMachine" storeName="My" />
     </Certificates>
   </WorkerRole>
 </ServiceDefinition>
