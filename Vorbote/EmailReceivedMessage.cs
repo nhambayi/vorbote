@@ -14,6 +14,8 @@ namespace Vorbote
 
         public EmailHeader[] Headers { get; set; }
 
+        public string RawHeaders { get; set; }
+
         public string MessageKey { get; set; }
     }
 }

@@ -218,8 +218,13 @@
                 {
                     var parser = new MimeParser(stream);
                     HeaderList headers = parser.ParseHeaders();
-
-                    MailStorage.QueueMessage(key, username, headers);
+                    StringBuilder headerBuilder = new StringBuilder();
+                    foreach(var header in headers)
+                    {
+                        headerBuilder.AppendLine(header.ToString());
+                    }
+                    var headerText = headerBuilder.ToString();
+                    MailStorage.QueueMessage(key, username, headerText);
                 }
 
                 if (response.ToUpper() == "RSET")

@@ -62,7 +62,7 @@
             }
         }
 
-        public async static void QueueMessage(string id, string account, HeaderList headers)
+        public async static void QueueMessage(string id, string account, string headers)
         {
             var queueClient = StorageAccount.CreateCloudQueueClient();
             CloudQueue queue = queueClient.GetQueueReference(SmtpServerConfiguration.QueueName);
@@ -76,23 +76,15 @@
                 Trace.WriteLine(ex.Message);
             }
 
-            List<EmailHeader> headerList = new List<EmailHeader>();
-
-            foreach(var header in headers)
-            {
-
-
-
-            }
-
 
             var newMessage = new EmailReceivedMessage()
             {
                 Account = account,
-                MessageKey = id
+                MessageKey = id,
+                RawHeaders = headers
             };
 
-            var data = ByteArraySerializer<EmailReceivedMessage>.Serialize(newMessage);
+            string data = JsonConvert.SerializeObject(newMessage);
 
             CloudQueueMessage message = new CloudQueueMessage(data);
             try
