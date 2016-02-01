@@ -7,14 +7,6 @@
 
     public class Server
     {
-        public int Port { get; private set; }
-
-        public IPAddress Address { get; private set; }
-
-        public string HostName { get; private set; }
-
-        public bool TlsRequired { get; private set; }
-
         public Server()
         {
 
@@ -33,23 +25,23 @@
             TlsRequired = tlsRequired;
         }
 
-        public void Init()
-        {
-            
-        }
+        public int Port { get; private set; }
+
+        public IPAddress Address { get; private set; }
+
+        public string HostName { get; private set; }
+
+        public bool TlsRequired { get; private set; }
 
         public void Start()
         {
             var listener = new TcpListener(Address, Port);
-            
             listener.Start();
-
-            TcpClient client;
 
             while (true)
             {
                 Debug.WriteLine("Ready...");
-                client = listener.AcceptTcpClient();
+                TcpClient client = listener.AcceptTcpClient();
                 SecureSmtpSession session = new SecureSmtpSession(client);
                 session.StartSessionAsync();
             }

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vorbote.Configuration
+namespace Vorbote
 {
-    public class Class1
+    public interface IMessageQueue
     {
+        void QueueMessage(string id, string account, string headers);
     }
 }

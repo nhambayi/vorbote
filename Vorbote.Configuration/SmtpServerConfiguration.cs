@@ -10,6 +10,7 @@
     public class SmtpServerConfiguration
     {
         private string _storageAccountKey;
+
         private static X509Certificate _sslCertificate;
 
         public static string CertificateThumbprint
@@ -98,7 +99,6 @@
                 return "vorbotedevstore";
             }
         }
-
 
         public static string StorageAccountKey
         {

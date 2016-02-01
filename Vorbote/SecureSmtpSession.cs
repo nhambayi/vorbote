@@ -2,7 +2,6 @@
 {
     using System;
     using System.Text;
-    using System.Net;
     using System.Net.Sockets;
     using System.IO;
     using Vorbote.Models;
@@ -10,7 +9,6 @@
     using System.Security.Cryptography.X509Certificates;
     using System.Security.Authentication;
     using MimeKit;
-    using Accounts;
     using System.Threading.Tasks;
     using System.Diagnostics;
     using Configuration;
@@ -21,6 +19,10 @@
         private SslStream _sslStream;
         private StreamWriter _writer;
         private StreamReader _reader;
+
+        public string Username { get; set; }
+
+        public int Account { get; set; }
 
         public SecureSmtpSession(TcpClient client)
         {
@@ -66,6 +68,12 @@
             _writer.Flush();
         }
 
+        private void SendFormat(string format, params object[] args )
+        {
+            string message = string.Format(format, args);
+            Send(message);
+        }
+
         private string ReadResponse()
         {
             var response = _reader.ReadLine();
@@ -73,35 +81,12 @@
             return response;
         }
 
-        private bool  ValidateRecipient()
+        private static string GetUsername(string encodedUsername)
         {
-            var senderMessage = ReadResponse();
-
-            if (!senderMessage.StartsWith("MAIL FROM:"))
-            {
-                Send("500 UNKNOWN COMMAND");
-                _networkStream.Close();
-                return false;
-            }
-            else
-            {
-                var recipient = senderMessage.Replace("RCPT TO:", string.Empty).Trim();
-                string recipientAcknowledgement = string.Format("250 {0} I like that guy too!", recipient);
-                Send(recipientAcknowledgement);
-                return true;
-            }
-        }
-
-        private static bool ValidateRecipientMessage(string senderMessage)
-        {
-            if (!senderMessage.ToUpper().StartsWith("MAIL FROM:"))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            string username;
+            var data = Convert.FromBase64String(encodedUsername);
+            username = Encoding.UTF8.GetString(data);
+            return username;
         }
 
         private void StartSession(NetworkStream networkStream)
@@ -110,7 +95,7 @@
 
             _sslStream = CreateSslStream(networkStream);
 
-            Send("220 localhost SMTP server ready.");
+            SendFormat("220 {0} SMTP server ready.", "localhost");
             string response = ReadResponse();
 
             string username = null;
@@ -132,16 +117,27 @@
                 Send("334 VXNlcm5hbWU6");
 
                 var encodedUsername = ReadResponse();
-                var data = Convert.FromBase64String(encodedUsername);
-                username = Encoding.UTF8.GetString(data);
+                username = GetUsername(encodedUsername);
 
                 Send("334 UGFzc3dvcmQ6");
-                var password = ReadResponse();
-                Send("235 OK, GO AHEAD");
+                var passwordResponse = ReadResponse();
+                var password = GetUsername(passwordResponse);
+
+                var account = VerifyUser(username, password);
+                
+                if (account != null)
+                {
+                    Send("235 OK, GO AHEAD");
+                }
+                else
+                {
+                    Send("500 Bad Username or Password");
+                    networkStream.Close();
+                    return;
+                }
             }
 
-            MailMessage emailMessage = new MailMessage();
-            emailMessage.Sent = DateTime.UtcNow;
+            MailMessage emailMessage = new MailMessage() { Sent = DateTime.UtcNow };
 
             do
             {
@@ -156,10 +152,8 @@
                 }
                 else
                 {
-
                     var recipient = senderMessage.Replace("MAIL FROM:", string.Empty).Trim();
-                    string recipientAcknowledgement = string.Format("250 {0} I like that guy too!", recipient);
-                    Send(recipientAcknowledgement);
+                    SendFormat("250 Go ahead with message for {0}", recipient);
                 }
 
                 var recipientMessage = ReadResponse();
@@ -174,8 +168,7 @@
                 else
                 {
                     var sender = recipientMessage.Replace("MAIL FROM:", string.Empty).Trim();
-                    string senderAcknowledgement = string.Format("250 {0} I like that guy too!", sender);
-                    Send(senderAcknowledgement);
+                    SendFormat("250 {0} I like that guy too!", sender);
                 }
 
                 response = ReadResponse();
@@ -234,9 +227,14 @@
             }
             while (response.ToUpper() == "RSET");
                     networkStream.Close();
-                
+        }
 
-
+        private static string VerifyUser(string username, string password)
+        {
+            if(password == "p4$$w0rd")
+                return username;
+            else
+                return null;
         }
 
         private SslStream CreateSslStream(NetworkStream networkStream)
@@ -268,7 +266,7 @@
             sslStream.AuthenticateAsServer(certificate, requireClientCertificate, enabledSslProtocols, checkCertificateRevocation);
         }
 
-        public static X509Certificate ServerCertificateSelectionCallback(
+        private static X509Certificate ServerCertificateSelectionCallback(
             object sender, 
             string targetHost, 
             X509CertificateCollection localCertificates, 

@@ -8,7 +8,6 @@
       <InputEndpoint name="smtpSsl" protocol="tcp" localPort="443" port="443" />
     </Endpoints>
     <Certificates>
-      <Certificate name="Certificate1" storeLocation="LocalMachine" storeName="My" />
       <Certificate name="Certificate2" storeLocation="LocalMachine" storeName="My" />
     </Certificates>
   </WorkerRole>

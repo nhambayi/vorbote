@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VorboteTests", "VorboteTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.ConfigurationTests", "Vorbote.ConfigurationTests\Vorbote.ConfigurationTests.csproj", "{34BAFE5C-B0CD-4B6C-88C0-68909372A270}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Mailboxes", "Vorbote.Mailboxes\Vorbote.Mailboxes.csproj", "{CCA7D5CF-4CA7-493D-B619-B876A649309E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{34BAFE5C-B0CD-4B6C-88C0-68909372A270}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34BAFE5C-B0CD-4B6C-88C0-68909372A270}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34BAFE5C-B0CD-4B6C-88C0-68909372A270}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCA7D5CF-4CA7-493D-B619-B876A649309E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCA7D5CF-4CA7-493D-B619-B876A649309E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCA7D5CF-4CA7-493D-B619-B876A649309E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCA7D5CF-4CA7-493D-B619-B876A649309E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

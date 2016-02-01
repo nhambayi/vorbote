@@ -11,7 +11,7 @@
     using Newtonsoft.Json;
     using System.IO;
 
-    public class DocumentDbMailBoxRepositry
+    public class DocumentDbMailBoxRepositry : IDisposable
     {
         private DocumentClient _documentDbClient;
         DocumentCollection _documentCollection;
@@ -121,6 +121,14 @@
         public void DeleteMailItem()
         {
 
+        }
+        public void Dispose()
+        {
+            if (_documentDbClient != null)
+            {
+                _documentDbClient.Dispose();
+                _documentDbClient = null;
+            }
         }
     }
 }

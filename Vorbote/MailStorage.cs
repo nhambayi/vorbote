@@ -1,19 +1,16 @@
 ﻿namespace Vorbote
 {
     using System.IO;
-    using System.Linq;
     using Configuration;
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Auth;
     using Microsoft.WindowsAzure.Storage.Blob;
     using System;
-    using System.Collections.Generic;
     using Microsoft.WindowsAzure.Storage.Queue;
     using System.Diagnostics;
-    using MimeKit;
     using Newtonsoft.Json;
 
-    public class MailStorage
+    public class MailStorage 
     {
         private static CloudStorageAccount _storageAccount;
 
