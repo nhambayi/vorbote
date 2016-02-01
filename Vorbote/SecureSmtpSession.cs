@@ -12,6 +12,7 @@
     using System.Threading.Tasks;
     using System.Diagnostics;
     using Configuration;
+    using Mailboxes.SqlServer;
 
     public class SecureSmtpSession : IDisposable
     {
@@ -230,11 +231,18 @@
         }
 
         private static string VerifyUser(string username, string password)
-        {
-            if(password == "p4$$w0rd")
-                return username;
+        {            var mailbox = SqlServerMailboxRepositry.GetMailbox(username);
+            if (mailbox != null)
+            {
+                if (password == mailbox.Password)
+                    return username;
+                else
+                    return null;
+            }
             else
+            {
                 return null;
+            }
         }
 
         private SslStream CreateSslStream(NetworkStream networkStream)

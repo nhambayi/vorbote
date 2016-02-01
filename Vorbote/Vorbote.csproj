@@ -129,6 +129,10 @@
       <Project>{f1d11361-dd25-4650-9c06-f4279f30c789}</Project>
       <Name>Vorbote.Configuration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Vorbote.Mailboxes\Vorbote.Mailboxes.csproj">
+      <Project>{cca7d5cf-4ca7-493d-b619-b876a649309e}</Project>
+      <Name>Vorbote.Mailboxes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
