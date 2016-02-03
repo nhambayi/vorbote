@@ -4,8 +4,6 @@
     using Dapper;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Data.SqlClient;
     using System.Configuration;
     using System.Data;
@@ -53,6 +51,22 @@
                 throw;
             }
             
+        }
+
+        public static string VerifyUser(string username, string password)
+        {
+            var mailbox = GetMailbox(username);
+            if (mailbox != null)
+            {
+                if (password == mailbox.Password)
+                    return username;
+                else
+                    return null;
+            }
+            else
+            {
+                return null;
+            }
         }
 
     }

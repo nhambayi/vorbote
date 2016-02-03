@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.Security.Cryptography.X509Certificates;
     using Microsoft.WindowsAzure.ServiceRuntime;
+    using System.Configuration;
 
     public class SmtpServerConfiguration
     {
@@ -17,7 +18,15 @@
         {
             get
             {
-                return "529502D6CD8032FBD953BF0CC6559E60B46ECA32";
+                try
+                {
+                    string thumbPrint = ConfigurationManager.AppSettings["sslCertificateThumbprint"];
+                    return thumbPrint;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
 
@@ -25,7 +34,15 @@
         {
             get
             {
-                return "localhost";
+                try
+                {
+                    string hostname = ConfigurationManager.AppSettings["hostname"];
+                    return hostname;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
 
@@ -33,7 +50,15 @@
         {
             get
             {
-                return "myqueue";
+                try
+                {
+                    string queueName = ConfigurationManager.AppSettings["queueName"];
+                    return queueName;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
 

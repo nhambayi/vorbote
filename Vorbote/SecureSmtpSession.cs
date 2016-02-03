@@ -4,7 +4,7 @@
     using System.Text;
     using System.Net.Sockets;
     using System.IO;
-    using Vorbote.Models;
+    using Models;
     using System.Net.Security;
     using System.Security.Cryptography.X509Certificates;
     using System.Security.Authentication;
@@ -14,12 +14,13 @@
     using Configuration;
     using Mailboxes.SqlServer;
 
-    public class SecureSmtpSession : IDisposable
+    public class SecureSmtpSession : ISmtpSession, IDisposable
     {
         public NetworkStream _networkStream;
         private SslStream _sslStream;
         private StreamWriter _writer;
         private StreamReader _reader;
+        private TcpClient _tcpClient;
 
         public string Username { get; set; }
 
@@ -27,12 +28,13 @@
 
         public SecureSmtpSession(TcpClient client)
         {
-            _networkStream = client.GetStream();
+            _tcpClient = client;
+            _networkStream = _tcpClient.GetStream();
         }
 
         public Task StartSessionAsync()
         {
-            return Task.Factory.StartNew(() => StartSession(_networkStream));
+            return Task.Factory.StartNew(() => StartSession());
         }
 
         public void Dispose()
@@ -90,11 +92,11 @@
             return username;
         }
 
-        private void StartSession(NetworkStream networkStream)
+        private void StartSession()
         {
             Debug.WriteLine("Connection accepted!");
 
-            _sslStream = CreateSslStream(networkStream);
+            _sslStream = CreateSslStream(_networkStream);
 
             SendFormat("220 {0} SMTP server ready.", "localhost");
             string response = ReadResponse();
@@ -104,7 +106,7 @@
             if (!response.StartsWith("HELO") && !response.StartsWith("EHLO"))
             {
                 Send("500 UNKNOWN COMMAND");
-                networkStream.Close();
+                _networkStream.Close();
                 return;
             }
 
@@ -133,7 +135,7 @@
                 else
                 {
                     Send("500 Bad Username or Password");
-                    networkStream.Close();
+                    _networkStream.Close();
                     return;
                 }
             }
@@ -148,7 +150,7 @@
                 {
                     emailMessage.From = response;
                     Send("500 UNKNOWN COMMAND");
-                    networkStream.Close();
+                    _networkStream.Close();
                     return;
                 }
                 else
@@ -163,7 +165,7 @@
                 {
                     emailMessage.To = response;
                     Send("500 UNKNOWN COMMAND");
-                    networkStream.Close();
+                    _networkStream.Close();
                     return;
                 }
                 else
@@ -177,7 +179,7 @@
                 if (response.Trim() != "DATA")
                 {
                     Send("500 UNKNOWN COMMAND");
-                    networkStream.Close();
+                    _networkStream.Close();
                     return;
                 }
 
@@ -194,7 +196,7 @@
 
                     if (counter == 1000000)
                     {
-                        networkStream.Close();
+                        _networkStream.Close();
                         return;
                     }
                 }
@@ -227,7 +229,9 @@
                 }
             }
             while (response.ToUpper() == "RSET");
-                    networkStream.Close();
+            {
+                _networkStream.Close();
+            }
         }
 
         private static string VerifyUser(string username, string password)

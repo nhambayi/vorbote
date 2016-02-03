@@ -111,9 +111,11 @@
     <Compile Include="Models\IMailMessage.cs" />
     <Compile Include="Models\Messages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ISmtpSession.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="SecureSmtpSession.cs" />
     <Compile Include="SmtpCodes.cs" />
+    <Compile Include="SmtpSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
