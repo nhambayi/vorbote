@@ -61,12 +61,10 @@
     <Compile Include="IMailbox.cs" />
     <Compile Include="IMailboxMessage.cs" />
     <Compile Include="KeyGenerator.cs" />
-    <Compile Include="MailBoxMessage.cs" />
     <Compile Include="IMailboxRepositry.cs" />
-    <Compile Include="MailBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlServer\Mailbox.cs" />
-    <Compile Include="SqlServer\MailboxMessages.cs" />
+    <Compile Include="SqlServer\MailBox.cs" />
+    <Compile Include="SqlServer\MailboxMessage.cs" />
     <Compile Include="SqlServer\SqlServerMailboxRepositry.cs" />
   </ItemGroup>
   <ItemGroup>

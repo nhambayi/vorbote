@@ -6,19 +6,16 @@ using System.Threading.Tasks;
 
 namespace Vorbote.Mailboxes.SqlServer
 {
-    public class Mailbox
+    public class MailBox
     {
-        public int MailboxId { get; set; }
-
-        public string Username { get; set; }
-
-        public string Password { get; set; }
-
+        public int MailBoxId { get; set; }
         public string Name { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
         public override string ToString()
         {
-            return string.Format("{0}-{1}", Username, MailboxId);
+            return string.Format("{0}-({ 1})", Username, MailBoxId);
         }
     }
 }

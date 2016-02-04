@@ -2,6 +2,7 @@
 {
     using System;
     using Dapper;
+    using Dapper.Extensions;
     using System.Collections.Generic;
     using System.Linq;
     using System.Data.SqlClient;
@@ -42,7 +43,7 @@
         {
             try
             {
-                var connectionString = ConfigurationManager.ConnectionStrings["accountsDatabase"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["mailboxesDatabase"].ConnectionString;
                 return new SqlConnection(connectionString);
 
             }
@@ -69,5 +70,24 @@
             }
         }
 
+
+        public static void AddMailMessage(MailBox mailbox, MailboxMessage message)
+        {
+            using (var connection = GetDbConnection())
+            {
+                var query = "INSERT INTO [dbo].[MailboxMessages] "
+                    + "([MessageId] ,[MailboxId] ,[RawHeader] ,[Body] ,[MessageUrl])"
+                    + " VALUES ( @MessageId, @MailboxId , @RawHeader, @Body , @MessageUrl)";
+
+                connection.Query(query, new
+                {
+                    message.MessageId,
+                    message.MailboxId,
+                    message.RawHeader,
+                    message.Body,
+                    message.MessageUrl
+                });
+            }
+        }
     }
 }

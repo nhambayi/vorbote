@@ -49,8 +49,7 @@
                 {
                     blob.UploadFromStream(file);
                 }
-
-                return filekey;
+                return blob.Uri.AbsoluteUri;
             }
             catch (Exception ex)
             {

@@ -1,8 +1,8 @@
 ﻿namespace Vorbote.Mailboxes.SqlServer
 {
-    public class MailboxMessages
+    public class MailboxMessage
     {
-        public int MessageId { get; set; }
+        public string MessageId { get; set; }
 
         public int MailboxMessageID { get; set; }
 

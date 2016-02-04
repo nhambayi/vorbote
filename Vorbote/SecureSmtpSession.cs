@@ -126,9 +126,9 @@
                 var passwordResponse = ReadResponse();
                 var password = GetUsername(passwordResponse);
 
-                var account = VerifyUser(username, password);
+                SessionMailBox = VerifyUser(username, password);
                 
-                if (account != null)
+                if (SessionMailBox != null)
                 {
                     Send("235 OK, GO AHEAD");
                 }
@@ -208,19 +208,32 @@
 
                 var messageBody = message.ToString();
 
-               string key = MailStorage.Save(username, messageBody);
+               string uri = MailStorage.Save(username, messageBody);
 
                 using (var stream = MailStorage.GetStream(messageBody))
                 {
                     var parser = new MimeParser(stream);
                     HeaderList headers = parser.ParseHeaders();
                     StringBuilder headerBuilder = new StringBuilder();
+
+                    //var parsedMessage = parser.ParseMessage();
                     foreach(var header in headers)
                     {
                         headerBuilder.AppendLine(header.ToString());
                     }
                     var headerText = headerBuilder.ToString();
-                    MailStorage.QueueMessage(key, username, headerText);
+
+                    MailboxMessage mmbm = new MailboxMessage
+                    {
+                         MailboxId = SessionMailBox.MailBoxId,
+                         MessageId = "",
+                         Body = "",
+                         RawHeader = headerText,
+                         MessageUrl = uri
+                    };
+
+                    SqlServerMailboxRepositry.AddMailMessage(SessionMailBox, mmbm);
+
                 }
 
                 if (response.ToUpper() == "RSET")
@@ -234,12 +247,15 @@
             }
         }
 
-        private static string VerifyUser(string username, string password)
-        {            var mailbox = SqlServerMailboxRepositry.GetMailbox(username);
+        public MailBox SessionMailBox { get; set; }
+
+        private static MailBox VerifyUser(string username, string password)
+        {
+            var mailbox = SqlServerMailboxRepositry.GetMailbox(username);
             if (mailbox != null)
             {
                 if (password == mailbox.Password)
-                    return username;
+                    return mailbox;
                 else
                     return null;
             }
