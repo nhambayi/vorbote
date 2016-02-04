@@ -1,4 +1,6 @@
-﻿namespace Vorbote.Mailboxes.SqlServer
+﻿using System;
+
+namespace Vorbote.Mailboxes.SqlServer
 {
     public class MailboxMessage
     {
@@ -13,5 +15,9 @@
         public string Body { get; set; }
 
         public string MessageUrl { get; set; }
+
+        public DateTime Recieved { get; set; }
+
+        public bool IsRead { get; set; }
     }
 }

@@ -27,8 +27,8 @@
                 var connectionString = ConfigurationManager.ConnectionStrings["mailboxesDatabase"].ConnectionString;
                 using (var connection = new SqlConnection(connectionString))
                 {
-                    var query = "select * from mailboxes where username = @Username";
-                    var mailBoxes = connection.Query<MailBox>(query, new { Username = username });
+                    var query = "select * from mailboxes where username = @username";
+                    var mailBoxes = connection.Query<MailBox>(query, new { username });
                     return mailBoxes.FirstOrDefault();
                 }
             }

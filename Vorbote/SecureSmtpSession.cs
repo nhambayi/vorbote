@@ -212,27 +212,34 @@
                 using (var stream = MailStorage.GetStream(messageBody))
                 {
                     var parser = new MimeParser(stream);
-                    HeaderList headers = parser.ParseHeaders();
+                    var parsedMessage = parser.ParseMessage();
+                    HeaderList headers = parsedMessage.Headers;
                     StringBuilder headerBuilder = new StringBuilder();
 
-                    //var parsedMessage = parser.ParseMessage();
                     foreach(var header in headers)
                     {
                         headerBuilder.AppendLine(header.ToString());
                     }
                     var headerText = headerBuilder.ToString();
+                    var messageText = parsedMessage.GetTextBody(MimeKit.Text.TextFormat.Text);
+
+                    if(messageText != null)
+                    {
+                        messageText = messageText.Substring(0, 200);
+                    }
 
                     MailboxMessage mmbm = new MailboxMessage
                     {
                          MailboxId = SessionMailBox.MailBoxId,
-                         MessageId = "",
-                         Body = "",
+                         MessageId = parsedMessage.MessageId,
+                         Body = messageText,
                          RawHeader = headerText,
-                         MessageUrl = uri
+                         MessageUrl = uri,
+                         Recieved = DateTime.UtcNow,
+                         IsRead = false
                     };
 
                     SqlServerMailboxRepositry.AddMailMessage(SessionMailBox, mmbm);
-
                 }
 
                 if (response.ToUpper() == "RSET")
