@@ -9,8 +9,6 @@
     </Endpoints>
     <Certificates>
       <Certificate name="Certificate2" storeLocation="LocalMachine" storeName="My" />
-      <Certificate name="Certificate1" storeLocation="LocalMachine" storeName="My" />
-      <Certificate name="Certificate3" storeLocation="LocalMachine" storeName="My" />
     </Certificates>
   </WorkerRole>
 </ServiceDefinition>

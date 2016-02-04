@@ -161,27 +161,26 @@
 
                 var recipientMessage = ReadResponse();
 
-                if (!recipientMessage.StartsWith("RCPT TO:"))
+                do
                 {
-                    emailMessage.To = response;
-                    Send("500 UNKNOWN COMMAND");
-                    _networkStream.Close();
-                    return;
-                }
-                else
-                {
-                    var sender = recipientMessage.Replace("MAIL FROM:", string.Empty).Trim();
-                    SendFormat("250 {0} I like that guy too!", sender);
-                }
 
-                response = ReadResponse();
+                    if (!recipientMessage.StartsWith("RCPT TO:"))
+                    {
+                        emailMessage.To = response;
+                        Send("500 UNKNOWN COMMAND");
+                        _networkStream.Close();
+                        return;
+                    }
+                    else
+                    {
+                        var sender = recipientMessage.Replace("MAIL FROM:", string.Empty).Trim();
+                        SendFormat("250 {0} I like that guy too!", sender);
+                    }
 
-                if (response.Trim() != "DATA")
-                {
-                    Send("500 UNKNOWN COMMAND");
-                    _networkStream.Close();
-                    return;
+                    recipientMessage = ReadResponse();
                 }
+                while (recipientMessage.Trim() != "DATA");
+
 
                 Send("354 Enter message. When finished, enter \".\" on a line by itself");
 
