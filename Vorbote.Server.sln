@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Tests", "Vorbote.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Core", "Vorbote.Core\Vorbote.Core.csproj", "{C919F762-976B-4C82-928C-EA7728C81813}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Core.Test", "Vorbote.Core.Test\Vorbote.Core.Test.csproj", "{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{C919F762-976B-4C82-928C-EA7728C81813}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C919F762-976B-4C82-928C-EA7728C81813}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C919F762-976B-4C82-928C-EA7728C81813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,5 +109,6 @@ Global
 		{94D7841E-6791-4DE6-9EB7-204925E45CC1} = {07E83860-39F3-48F2-9CCA-52F9B33D09B6}
 		{34BAFE5C-B0CD-4B6C-88C0-68909372A270} = {07E83860-39F3-48F2-9CCA-52F9B33D09B6}
 		{6D374B98-3B0A-4FCA-BD24-BEF78EE83ED7} = {07E83860-39F3-48F2-9CCA-52F9B33D09B6}
+		{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F} = {07E83860-39F3-48F2-9CCA-52F9B33D09B6}
 	EndGlobalSection
 EndGlobal

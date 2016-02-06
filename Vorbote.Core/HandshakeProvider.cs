@@ -12,6 +12,7 @@ namespace Vorbote
         {
             var transport = context.Transport;
             transport.SendFormat("220 {0} SMTP server ready.", context.ServerName);
+
             string response = transport.Read();
             if (!response.StartsWith("HELO") && !response.StartsWith("EHLO"))
             {

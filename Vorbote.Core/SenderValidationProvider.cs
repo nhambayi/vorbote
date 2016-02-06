@@ -11,7 +11,6 @@ namespace Vorbote
         public IResult RunAsync(SmtpSessionContext context)
         {
             var transport = context.Transport;
-
             var senderMessage = transport.Read();
 
             if (!senderMessage.StartsWith("MAIL FROM:"))
@@ -21,7 +20,6 @@ namespace Vorbote
                     StatusCode = 500,
                     StatusReason = "Unknown Command"
                 };
-
                 return errorResult;
             }
             else
