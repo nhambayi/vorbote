@@ -4,6 +4,7 @@ using Vorbote;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Vorbote.Providers;
 
 namespace Vorbote.Tests
 {

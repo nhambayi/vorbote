@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="ISession.cs" />
     <Compile Include="Providers\HandshakeProvider.cs" />
     <Compile Include="Providers\HandshakeResult.cs" />
     <Compile Include="IMessageRecipientValidator.cs" />

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
+using Vorbote.Providers;
 
 namespace Vorbote.Tests
 {
