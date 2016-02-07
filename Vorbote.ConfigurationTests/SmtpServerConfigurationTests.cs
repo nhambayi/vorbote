@@ -11,10 +11,6 @@ namespace Vorbote.Configuration.Tests
     [TestClass()]
     public class SmtpServerConfigurationTests
     {
-        [TestMethod()]
-        public void InitTest()
-        {
-            Assert.Fail();
-        }
+
     }
 }

@@ -100,21 +100,20 @@
 
             SendFormat("220 {0} SMTP server ready.", "localhost");
             string response = ReadResponse();
-
-            string username = null;
-
             if (!response.StartsWith("HELO") && !response.StartsWith("EHLO"))
             {
                 Send("500 UNKNOWN COMMAND");
                 _networkStream.Close();
                 return;
             }
-
             string remoteServer = response.Replace("HELO", string.Empty).Replace("EHLO", string.Empty).Trim();
-            Send("250-localhost", "250 AUTH LOGIN PLAIN CRAM-MD5");
+            Send("250-localhost");
 
+
+
+            Send("250 AUTH LOGIN PLAIN CRAM-MD5");
             response = ReadResponse();
-
+            string username = null;
             if (response.ToUpper() == "AUTH LOGIN")
             {
                 Send("334 VXNlcm5hbWU6");
