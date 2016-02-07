@@ -20,7 +20,7 @@ namespace Vorbote
             {
                 var errorResult = new HandshakeResult
                 {
-                    StatusCode = 500,
+                    StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
                     StatusReason = "Unknow Command"
                 };
                 return errorResult;
@@ -30,7 +30,7 @@ namespace Vorbote
 
             var result = new HandshakeResult
             {
-                StatusCode = 250,
+                StatusCode = SmtpStatusCode.OK,
                 RemoteClient = client
             };
             return result;

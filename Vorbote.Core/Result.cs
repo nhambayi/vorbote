@@ -7,11 +7,7 @@ namespace Vorbote
 {
     public class Result : IResult
     {
-        public Result()
-        {
-
-        }
-        public int StatusCode { get; set; }
+        public SmtpStatusCode StatusCode { get; set; }
         public string StatusReason { get; set; }
     }
 }

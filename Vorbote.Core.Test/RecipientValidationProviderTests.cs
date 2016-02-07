@@ -67,7 +67,7 @@ namespace Vorbote.Core.Tests
 
             var result = provider.RunAsync(context).Result as RecipientValidationResult;
             Assert.IsNotNull(result);
-            Assert.AreEqual(250, result.StatusCode);
+            Assert.AreEqual(SmtpStatusCode.OK, result.StatusCode);
             Assert.IsNotNull(result.Recipients);
             List<string> reciientList = new List<string>(result.Recipients);
             Assert.IsTrue(reciientList.Count == 1);
@@ -90,7 +90,7 @@ namespace Vorbote.Core.Tests
 
             var result = provider.RunAsync(context).Result as RecipientValidationResult;
             Assert.IsNotNull(result);
-            Assert.AreEqual(500, result.StatusCode);
+            Assert.AreEqual(SmtpStatusCode.UNKNOWN_COMMAND, result.StatusCode);
             Assert.IsNull(result.Recipients);
         }
 

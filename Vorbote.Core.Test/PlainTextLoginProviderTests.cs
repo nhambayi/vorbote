@@ -38,7 +38,7 @@ namespace Vorbote.Tests
 
             var authresult = result as UserAuthenticationResult;
             Assert.IsNotNull(authresult);
-            Assert.AreEqual(200, authresult.StatusCode);
+            Assert.AreEqual(SmtpStatusCode.OK, authresult.StatusCode);
             Assert.AreEqual(testUsername, authresult.Username);
         }
 
@@ -65,7 +65,7 @@ namespace Vorbote.Tests
 
             var authresult = result as UserAuthenticationResult;
             Assert.IsNotNull(authresult);
-            Assert.AreEqual(400, authresult.StatusCode);
+            Assert.AreEqual(SmtpStatusCode.MAILBOX_NOT_FOUND, authresult.StatusCode);
             Assert.AreEqual(testUsername, authresult.Username);
         }
 
@@ -88,7 +88,7 @@ namespace Vorbote.Tests
 
             var authresult = result as UserAuthenticationResult;
             Assert.IsNotNull(authresult);
-            Assert.AreEqual(500, authresult.StatusCode);
+            Assert.AreEqual(SmtpStatusCode.UNKNOWN_COMMAND, authresult.StatusCode);
         }
 
         private void SetupAuthProvider(bool authproviderReturn)

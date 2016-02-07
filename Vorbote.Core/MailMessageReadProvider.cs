@@ -27,7 +27,7 @@ namespace Vorbote
                 {
                     var errorResult = new MessageProcessingResult
                     {
-                        StatusCode = 500,
+                        StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
                         StatusReason = "Message size exceeds limit"
                     };
 
@@ -38,7 +38,7 @@ namespace Vorbote
             transport.Send("250 OK");
             var result = new MessageProcessingResult
             {
-                StatusCode = 250,
+                StatusCode = SmtpStatusCode.OK,
                 StatusReason = "Message recieved"
             };
             return result;

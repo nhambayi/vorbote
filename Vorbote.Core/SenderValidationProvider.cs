@@ -19,7 +19,7 @@ namespace Vorbote
             {
                 var errorResult = new SenderValidationResult
                 {
-                    StatusCode = 500,
+                    StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
                     StatusReason = "Unknown Command"
                 };
                 return errorResult;
@@ -33,7 +33,7 @@ namespace Vorbote
                 {
                     var result = new SenderValidationResult
                     {
-                        StatusCode = 200,
+                        StatusCode = SmtpStatusCode.OK,
                         StatusReason = "Sender Accepted",
                         Sender = sender
                     };
@@ -43,7 +43,7 @@ namespace Vorbote
                 {
                     var result = new SenderValidationResult
                     {
-                        StatusCode = 400,
+                        StatusCode = SmtpStatusCode.MAILBOX_NOT_FOUND,
                         StatusReason = "Sender Not Authorized",
                         Sender = sender
                     };

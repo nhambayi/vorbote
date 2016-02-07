@@ -60,6 +60,7 @@
     <Compile Include="Session.cs" />
     <Compile Include="SmtpSessionContext.cs" />
     <Compile Include="SmtpSessionFactory.cs" />
+    <Compile Include="SmtpStatusCodes.cs" />
     <Compile Include="UserAuthenticationResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,7 +8,7 @@ namespace Vorbote
 {
     public class HandshakeResult : IResult
     {
-        public int StatusCode { get; set; }
+        public SmtpStatusCode StatusCode { get; set; }
         public string StatusReason { get; set; }
         public string RemoteClient { get; set; }
     }

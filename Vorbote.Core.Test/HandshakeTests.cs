@@ -25,7 +25,7 @@ namespace Vorbote.Core.Tests
                 .ContinueWith(x =>
                 {
                     var result = x.Result;
-                    Assert.AreEqual(250, result.StatusCode);
+                    Assert.AreEqual(SmtpStatusCode.OK, result.StatusCode);
                 });
         }
 
@@ -45,7 +45,7 @@ namespace Vorbote.Core.Tests
 
             var result =  provider.RunAsync(context).Result;
 
-            Assert.AreEqual(250, result.StatusCode);
+            Assert.AreEqual(SmtpStatusCode.OK, result.StatusCode);
         }
 
         [TestMethod]
@@ -64,7 +64,7 @@ namespace Vorbote.Core.Tests
 
             var result =  provider.RunAsync(context).Result;
 
-            Assert.AreEqual(500, result.StatusCode);
+            Assert.AreEqual(SmtpStatusCode.UNKNOWN_COMMAND, result.StatusCode);
         }
     }
 }

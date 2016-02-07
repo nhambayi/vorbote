@@ -36,7 +36,7 @@ namespace Vorbote
                 {
                     var result = new UserAuthenticationResult
                     {
-                        StatusCode = 200,
+                        StatusCode =  SmtpStatusCode.OK,
                         StatusReason = "User Authenticated",
                         Username = username,
                         MailBox = null
@@ -47,7 +47,7 @@ namespace Vorbote
                 {
                     var errorResult = new UserAuthenticationResult
                     {
-                        StatusCode = 400,
+                        StatusCode = SmtpStatusCode.MAILBOX_NOT_FOUND,
                         StatusReason = "Bad Username or Password",
                         Username = username,
                         MailBox = null
@@ -59,7 +59,7 @@ namespace Vorbote
             {
                 var errorResult = new UserAuthenticationResult
                 {
-                    StatusCode = 500,
+                    StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
                     StatusReason = "Unknow Command",
                     Username = null,
                     MailBox = null

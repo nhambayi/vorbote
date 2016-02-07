@@ -23,7 +23,7 @@ namespace Vorbote
                 {
                     var errorResult = new RecipientValidationResult
                     {
-                        StatusCode = 500,
+                        StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
                         StatusReason = "UNKNOW COMMAND"
                     };
                     return errorResult;
@@ -45,7 +45,7 @@ namespace Vorbote
 
             var result = new RecipientValidationResult
             {
-                StatusCode = 250,
+                StatusCode = SmtpStatusCode.OK,
                 StatusReason = "ACCEPTED",
                 Recipients = recipients
             };
