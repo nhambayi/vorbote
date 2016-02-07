@@ -81,9 +81,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="HandshakeTests.cs" />
+    <Compile Include="MailMessageReadProviderTests.cs" />
     <Compile Include="PlainTextLoginProviderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SenderValidationProviderTests.cs" />
+    <Compile Include="RecipientValidationProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Vorbote.Core\Vorbote.Core.csproj">
