@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Vorbote
+namespace Vorbote.Providers
 {
-    public class HandshakeProvider
+    public class HandshakeProvider : ISmtpSessionProvider
     {
         public async Task<IResult> RunAsync(SmtpSessionContext context, 
             CancellationToken cancellationToken = new CancellationToken())

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vorbote
+namespace Vorbote.Providers
 {
-    public class MessageProcessingResult : IResult
+    public class HandshakeResult : IResult
     {
         public SmtpStatusCode StatusCode { get; set; }
-
         public string StatusReason { get; set; }
+        public string RemoteClient { get; set; }
     }
 }
