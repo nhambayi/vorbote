@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Vorbote
 {
     public class MailMessageReadProvider
     {
-        public IResult RunAsync(SmtpSessionContext context)
+        public async Task<IResult> RunAsync(SmtpSessionContext context, 
+            CancellationToken cancellationToken = new CancellationToken())
         {
             var transport = context.Transport;
             int counter = 0;

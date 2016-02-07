@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Vorbote
 {
     public class PlainTextLoginProvider
     {
-        public async Task<IResult> RunAsync(SmtpSessionContext context)
+        public async Task<IResult> RunAsync(SmtpSessionContext context,
+            CancellationToken cancellationToken = new CancellationToken())
         {
-            var transport = context.Transport;
+            cancellationToken.ThrowIfCancellationRequested();
 
+            var transport = context.Transport;
             transport.Send("250 AUTH LOGIN PLAIN CRAM-MD5");
             var response = transport.Read();
 

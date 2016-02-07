@@ -15,5 +15,7 @@ namespace Vorbote
         public IAuthProvider AuthProvider { get; set; }
 
         public IMessageSenderValidator SenderValidator { get; set; }
+
+        public IMessageRecipientValidator RecipientValidator { get; set; }
     }
 }
