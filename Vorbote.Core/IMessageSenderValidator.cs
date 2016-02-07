@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Vorbote
 {
-    interface IAllowedSenderStore
+    public interface IMessageSenderValidator
     {
         bool IsAuthorizedSender(string sender);
     }

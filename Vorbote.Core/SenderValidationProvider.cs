@@ -25,8 +25,9 @@ namespace Vorbote
             else
             {
                 var sender = senderMessage.Replace("MAIL FROM:", string.Empty).Trim();
-                var validationResult = context.SenderStore.IsAuthorizedSender(sender);
-                if(validationResult)
+                var validationResult = context.SenderValidator.IsAuthorizedSender(sender);
+
+                if (validationResult)
                 {
                     var result = new SenderValidationResult
                     {
@@ -34,6 +35,7 @@ namespace Vorbote
                         StatusReason = "Sender Accepted",
                         Sender = sender
                     };
+                    return result;
                 }
                 else
                 {
@@ -43,9 +45,8 @@ namespace Vorbote
                         StatusReason = "Sender Not Authorized",
                         Sender = sender
                     };
+                    return result;
                 }
-
-                return result;
             }
         }
     }
