@@ -31,8 +31,13 @@ namespace Vorbote
                 else
                 {
                     var recipient = recipientMessage.Replace("RCPT TO:", string.Empty).Trim();
-                    recipients.Add(recipient);
-                    transport.SendFormat("250 {0} OK", recipients);
+                    var validationResult = context.RecipientValidator.ValidateRecipient(recipient);
+
+                    if (validationResult)
+                    {
+                        recipients.Add(recipient);
+                        transport.SendFormat("250 {0} OK", recipients);
+                    }
                 }
                 recipientMessage = transport.Read();
 

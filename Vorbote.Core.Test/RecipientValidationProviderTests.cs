@@ -12,11 +12,6 @@ namespace Vorbote.Core.Tests
         private int _counter;
         private Mock<ITransport> _transportMock;
         private List<string> _responses;
-
-        public RecipientValidationProviderTests()
-        {
-
-        }
         private TestContext testContextInstance;
 
         public TestContext TestContext
@@ -61,9 +56,13 @@ namespace Vorbote.Core.Tests
             const string recipientAddress = "robin.hood@sherwoodforest.co.uk";
             SetResponses(string.Format("RCPT TO: {0}", recipientAddress), "DATA");
 
+            Mock<IMessageRecipientValidator> validatorMock = new Mock<IMessageRecipientValidator>();
+            validatorMock.Setup(s => s.ValidateRecipient(It.IsAny<string>())).Returns(true);
+
             var context = new SmtpSessionContext()
             {
-                Transport = _transportMock.Object
+                Transport = _transportMock.Object,
+                RecipientValidator = validatorMock.Object
             };
 
             var result = provider.RunAsync(context).Result as RecipientValidationResult;
