@@ -8,7 +8,7 @@ namespace Vorbote
 {
     public class PlainTextLoginProvider
     {
-        public IResult RunAsync(SmtpSessionContext context)
+        public async Task<IResult> RunAsync(SmtpSessionContext context)
         {
             var transport = context.Transport;
 
@@ -21,11 +21,11 @@ namespace Vorbote
                 transport.Send("334 VXNlcm5hbWU6");
 
                 var encodedUsername = transport.Read();
-                username = Base64Decode(encodedUsername);
+                username = encodedUsername.Base64Decode();
 
                 transport.Send("334 UGFzc3dvcmQ6");
                 var passwordResponse = transport.Read();
-                var password = Base64Decode(passwordResponse);
+                var password = passwordResponse.Base64Decode();
 
                 var isValid = context.AuthProvider.AuthorizeUser(username, password);
 
@@ -64,14 +64,6 @@ namespace Vorbote
 
                 return errorResult;
             }
-        }
-
-        private static string Base64Decode(string encodedUsername)
-        {
-            string username;
-            var data = Convert.FromBase64String(encodedUsername);
-            username = Encoding.UTF8.GetString(data);
-            return username;
         }
     }
 }

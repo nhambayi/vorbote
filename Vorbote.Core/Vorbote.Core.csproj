@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="HandshakeProvider.cs" />
     <Compile Include="HandshakeResult.cs" />
     <Compile Include="IAuthProvider.cs" />

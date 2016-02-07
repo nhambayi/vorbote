@@ -8,7 +8,7 @@ namespace Vorbote
 {
     public class HandshakeProvider
     {
-        public IResult RunAsync(SmtpSessionContext context)
+        public async Task<IResult> RunAsync(SmtpSessionContext context)
         {
             var transport = context.Transport;
             transport.SendFormat("220 {0} SMTP server ready.", context.ServerName);

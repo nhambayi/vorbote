@@ -33,7 +33,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Tests", "Vorbote.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Core", "Vorbote.Core\Vorbote.Core.csproj", "{C919F762-976B-4C82-928C-EA7728C81813}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Core.Test", "Vorbote.Core.Test\Vorbote.Core.Test.csproj", "{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Core.Tests", "Vorbote.Core.Test\Vorbote.Core.Tests.csproj", "{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,8 +6,8 @@
     <ProjectGuid>{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Vorbote.Core.Test</RootNamespace>
-    <AssemblyName>Vorbote.Core.Test</AssemblyName>
+    <RootNamespace>Vorbote.Core.Tests</RootNamespace>
+    <AssemblyName>Vorbote.Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

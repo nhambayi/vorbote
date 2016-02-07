@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Vorbote.Core.Test
+namespace Vorbote.Core.Tests
 {
     [TestClass]
     public class HandshakeTests
@@ -21,13 +21,16 @@ namespace Vorbote.Core.Test
             };
             transportMoq.Setup(m => m.Read()).Returns("HELO");
 
-            var result = provider.RunAsync(context);
-
-            Assert.AreEqual(250, result.StatusCode);
+            provider.RunAsync(context)
+                .ContinueWith(x =>
+                {
+                    var result = x.Result;
+                    Assert.AreEqual(250, result.StatusCode);
+                });
         }
 
         [TestMethod]
-        public void BasicHandshakeEHLOResponse()
+        public  void BasicHandshakeEHLOResponse()
         {
             var provider = new HandshakeProvider();
 
@@ -40,7 +43,7 @@ namespace Vorbote.Core.Test
             };
             transportMoq.Setup(m => m.Read()).Returns("EHLO");
 
-            var result = provider.RunAsync(context);
+            var result =  provider.RunAsync(context).Result;
 
             Assert.AreEqual(250, result.StatusCode);
         }
@@ -59,7 +62,7 @@ namespace Vorbote.Core.Test
             };
             transportMoq.Setup(m => m.Read()).Returns("HELLO");
 
-            var result = provider.RunAsync(context);
+            var result =  provider.RunAsync(context).Result;
 
             Assert.AreEqual(500, result.StatusCode);
         }
