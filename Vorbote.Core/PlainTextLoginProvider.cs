@@ -56,7 +56,7 @@ namespace Vorbote
             {
                 var errorResult = new UserAuthenticationResult
                 {
-                    StatusCode = 400,
+                    StatusCode = 500,
                     StatusReason = "Unknow Command",
                     Username = null,
                     MailBox = null

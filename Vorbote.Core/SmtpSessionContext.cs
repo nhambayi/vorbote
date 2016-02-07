@@ -13,5 +13,7 @@ namespace Vorbote
         public ITransport Transport { get; set; }
 
         public IAuthProvider AuthProvider { get; set; }
+
+        public IAllowedSenderStore SenderStore { get; set; }
     }
 }

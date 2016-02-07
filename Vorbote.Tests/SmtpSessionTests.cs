@@ -12,17 +12,6 @@ namespace Vorbote.Tests
     [TestClass()]
     public class SmtpSessionTests
     {
-        [TestMethod()]
-        public void StartSessionTest()
-        {
-            MemoryStream stream = new MemoryStream();
-            StreamReader reader = new StreamReader(stream);
-            StreamWriter writter = new StreamWriter(stream);
 
-            SmtpSession session = new SmtpSession(reader, writter);
-            //session.StartSession();
-
-            Assert.Fail();
-        }
     }
 }

@@ -8,7 +8,7 @@ namespace Vorbote
 {
     public class SenderValidationProvider 
     {
-        public IResult RunAsync(SmtpSessionContext context)
+        public async Task<IResult> RunAsync(SmtpSessionContext context)
         {
             var transport = context.Transport;
             var senderMessage = transport.Read();
@@ -25,12 +25,26 @@ namespace Vorbote
             else
             {
                 var sender = senderMessage.Replace("MAIL FROM:", string.Empty).Trim();
-                var result = new SenderValidationResult
+                var validationResult = context.SenderStore.IsAuthorizedSender(sender);
+                if(validationResult)
                 {
-                    StatusCode = 200,
-                    StatusReason = "Sender Accepted",
-                    Sender = sender
-                };
+                    var result = new SenderValidationResult
+                    {
+                        StatusCode = 200,
+                        StatusReason = "Sender Accepted",
+                        Sender = sender
+                    };
+                }
+                else
+                {
+                    var result = new SenderValidationResult
+                    {
+                        StatusCode = 400,
+                        StatusReason = "Sender Not Authorized",
+                        Sender = sender
+                    };
+                }
+
                 return result;
             }
         }

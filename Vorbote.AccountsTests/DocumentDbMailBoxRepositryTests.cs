@@ -11,10 +11,6 @@ namespace Vorbote.Accounts.Tests
     [TestClass()]
     public class DocumentDbMailBoxRepositryTests
     {
-        [TestMethod()]
-        public void GetMailBoxTest()
-        {
-            Assert.Fail();
-        }
+
     }
 }

@@ -16,8 +16,8 @@ namespace Vorbote
 
         public static string Base64Encode(this string value)
         {
-            var data = Convert.FromBase64String(value);
-            var result = Encoding.UTF8.GetString(data);
+            var data = Encoding.UTF8.GetBytes(value);
+            var result = Convert.ToBase64String(data);
             return result;
         }
     }

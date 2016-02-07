@@ -11,10 +11,6 @@ namespace Vorbote.Tests
     [TestClass()]
     public class ServerTests
     {
-        [TestMethod()]
-        public void ServerTest()
-        {
-            Assert.Fail();
-        }
+
     }
 }
