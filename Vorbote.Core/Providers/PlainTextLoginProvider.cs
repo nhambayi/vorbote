@@ -34,6 +34,8 @@ namespace Vorbote.Providers
 
                 if (isValid)
                 {
+                    transport.Send(SmtpStatusCode.OK, "Go Ahead");
+
                     var result = new UserAuthenticationResult
                     {
                         StatusCode =  SmtpStatusCode.OK,
@@ -45,6 +47,7 @@ namespace Vorbote.Providers
                 }
                 else
                 {
+                    transport.Send(SmtpStatusCode.MAILBOX_NOT_FOUND, "Bad username of password");
                     var errorResult = new UserAuthenticationResult
                     {
                         StatusCode = SmtpStatusCode.MAILBOX_NOT_FOUND,
@@ -57,6 +60,7 @@ namespace Vorbote.Providers
             }
             else
             {
+                transport.Send(SmtpStatusCode.UNKNOWN_COMMAND, "Unknow Command");
                 var errorResult = new UserAuthenticationResult
                 {
                     StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
@@ -64,7 +68,6 @@ namespace Vorbote.Providers
                     Username = null,
                     MailBox = null
                 };
-
                 return errorResult;
             }
         }

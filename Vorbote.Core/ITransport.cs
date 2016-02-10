@@ -11,6 +11,7 @@ namespace Vorbote
         string Read();
         void Send(params string[]  message);
         void SendFormat(string messageFormat, params object[] args);
+        void Send(SmtpStatusCode statusCode, string message);
         void Close();
 
     }

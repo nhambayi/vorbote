@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="HandshakeCompleteEventArgs.cs" />
+    <Compile Include="InMemoryAuthorizationProvider.cs" />
     <Compile Include="ISession.cs" />
     <Compile Include="Providers\HandshakeProvider.cs" />
     <Compile Include="Providers\HandshakeResult.cs" />

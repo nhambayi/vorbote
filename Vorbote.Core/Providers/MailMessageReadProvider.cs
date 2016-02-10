@@ -9,8 +9,7 @@ namespace Vorbote.Providers
 {
     public class MailMessageReadProvider : ISmtpSessionProvider
     {
-        public async Task<IResult> RunAsync(SmtpSessionContext context, 
-            CancellationToken cancellationToken = new CancellationToken())
+        public IResult Run(SmtpSessionContext context)
         {
             var transport = context.Transport;
             int counter = 0;
@@ -25,6 +24,7 @@ namespace Vorbote.Providers
 
                 if (counter == 1000000)
                 {
+                    transport.Send(SmtpStatusCode.INSUFFICIENT_STORAGE, "MESSAGE TO LARGE");
                     var errorResult = new MessageProcessingResult
                     {
                         StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
@@ -42,6 +42,12 @@ namespace Vorbote.Providers
                 StatusReason = "Message recieved"
             };
             return result;
+        }
+
+        public async Task<IResult> RunAsync(SmtpSessionContext context, 
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return Run(context);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Vorbote.Providers
 
             if (!senderMessage.StartsWith("MAIL FROM:"))
             {
+                transport.Send(SmtpStatusCode.UNKNOWN_COMMAND, "UNKNOW COMMAND");
                 var errorResult = new SenderValidationResult
                 {
                     StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
@@ -32,6 +33,7 @@ namespace Vorbote.Providers
 
                 if (validationResult)
                 {
+                    transport.Send(SmtpStatusCode.OK, "GO AHEAD");
                     var result = new SenderValidationResult
                     {
                         StatusCode = SmtpStatusCode.OK,
@@ -42,6 +44,7 @@ namespace Vorbote.Providers
                 }
                 else
                 {
+                    transport.Send(SmtpStatusCode.MAILBOX_NOT_FOUND, "UNAUTHORIZED SENDER");
                     var result = new SenderValidationResult
                     {
                         StatusCode = SmtpStatusCode.MAILBOX_NOT_FOUND,

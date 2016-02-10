@@ -18,7 +18,7 @@ namespace Vorbote.Tests
         private Mock<ITransport> _transportMock;
 
         [TestMethod()]
-        public void ReadMessageTestTest()
+        public void ReadMessageTest()
         {
             var responses = new string[]{
                 "From: \"Bob Example\" < bob@example.org >",
@@ -50,13 +50,15 @@ namespace Vorbote.Tests
         private void SetResponses(params string[] args)
         {
             _responses = new List<string>(args);
-
             _transportMock = new Mock<ITransport>();
+
             _transportMock.Setup(s => s.Read()).Returns(() =>
             {
-                var message = _responses[_counter];
+                return _responses[_counter];
+            })
+            .Callback(() => 
+            {
                 _counter++;
-                return message;
             });
 
             _counter = 0;

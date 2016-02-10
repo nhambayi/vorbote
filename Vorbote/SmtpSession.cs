@@ -162,6 +162,7 @@
             }
 
             RemoteServer = response.Replace("HELO", string.Empty).Replace("EHLO", string.Empty).Trim();
+
             Send("250-localhost", "250 AUTH LOGIN PLAIN CRAM-MD5");
 
             response = ReadResponse();

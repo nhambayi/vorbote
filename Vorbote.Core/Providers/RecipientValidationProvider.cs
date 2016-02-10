@@ -21,6 +21,7 @@ namespace Vorbote.Providers
             {
                 if (!recipientMessage.StartsWith("RCPT TO:"))
                 {
+                    transport.Send(SmtpStatusCode.UNKNOWN_COMMAND, "UNKNOW COMMAND");
                     var errorResult = new RecipientValidationResult
                     {
                         StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
