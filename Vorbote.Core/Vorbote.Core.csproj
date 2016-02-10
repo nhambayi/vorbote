@@ -66,6 +66,8 @@
     <Compile Include="SmtpSessionFactory.cs" />
     <Compile Include="SmtpStatusCodes.cs" />
     <Compile Include="Providers\UserAuthenticationResult.cs" />
+    <Compile Include="SslTransport.cs" />
+    <Compile Include="TcpTransport.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
