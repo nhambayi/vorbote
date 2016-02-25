@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Vorbote
+﻿namespace Vorbote
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net.Sockets; 
+
     public class TcpTransport : ITransport, IDisposable
     {
         protected NetworkStream _networkStream;
@@ -17,7 +15,6 @@ namespace Vorbote
         public TcpTransport(NetworkStream networkStream)
         {
             _networkStream = networkStream;
-            Initialize();
         }
 
         virtual protected void Initialize()

@@ -31,7 +31,7 @@ namespace Vorbote.Tests
                 "This is a test message with 5 header fields and 4 lines in the message body.",
                 "Your friend,",
                 "Bob",
-                ".",};
+                "."};
 
             SetResponses(responses);
             
