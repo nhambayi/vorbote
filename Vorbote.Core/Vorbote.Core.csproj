@@ -65,7 +65,6 @@
     <Compile Include="Providers\SenderValidationResult.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SmtpSessionContext.cs" />
-    <Compile Include="SmtpSessionFactory.cs" />
     <Compile Include="SmtpStatusCodes.cs" />
     <Compile Include="Providers\UserAuthenticationResult.cs" />
     <Compile Include="SslTransport.cs" />

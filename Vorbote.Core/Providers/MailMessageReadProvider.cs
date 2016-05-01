@@ -27,7 +27,7 @@ namespace Vorbote.Providers
                     transport.Send(SmtpStatusCode.INSUFFICIENT_STORAGE, "MESSAGE TO LARGE");
                     var errorResult = new MessageProcessingResult
                     {
-                        StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
+                        StatusCode = SmtpStatusCode.LOCAL_PROCESSING_ERROR,
                         StatusReason = "Message size exceeds limit"
                     };
 
@@ -35,7 +35,8 @@ namespace Vorbote.Providers
                 }
             }
 
-            transport.Send("250 OK");
+            transport.Send(SmtpStatusCode.OK, "OK");
+
             var result = new MessageProcessingResult
             {
                 StatusCode = SmtpStatusCode.OK,
