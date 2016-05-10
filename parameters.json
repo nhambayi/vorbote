@@ -3,25 +3,25 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "databaseAccounts_moqmail_db_dev_name": {
-      "value": null
+      "value": "moqmail-tst-db-dev"
     },
     "databaseAccounts_moqmail_db_dev_name_1": {
-      "value": null
+      "value": "moqmail-db-dev"
     },
     "components_moqmail_dev_insights_name": {
-      "value": null
+      "value": "moqmail-dev-insights"
     },
     "storageAccounts_vorbotedevstorage_name": {
-      "value": null
+      "value": "vorbotedevstorage"
     },
     "serverfarms_moqmail_dev_service_name": {
-      "value": null
+      "value": "moqmail-dev-service"
     },
     "sites_moqmail_dev_web_name": {
-      "value": null
+      "value": "moqmail-dev-web"
     },
     "sites_vorbote_dev_api_name": {
-      "value": null
+      "value": "vorbote-dev-api"
     }
   }
 }
