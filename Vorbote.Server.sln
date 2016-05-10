@@ -41,6 +41,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Api.Web", "Vorbote.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Api.Web.Tests", "Vorbote.Api.Web.Tests\Vorbote.Api.Web.Tests.csproj", "{3DAF0851-28E7-456F-8591-8155233BFD37}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{395149F6-13C4-4E2A-9FAE-A17EF2F2E80E}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\Desktop\parameters.json = ..\..\..\..\Desktop\parameters.json
+		..\..\..\..\Desktop\template.json = ..\..\..\..\Desktop\template.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
