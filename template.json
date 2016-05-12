@@ -56,7 +56,7 @@
   "resources": [
     {
       "apiVersion": "2015-04-08",
-      "type": "Microsoft.DocumentDb/databaseAccounts",
+      "type": "Microsoft.DocumentDB/databaseAccounts",
       "name": "[variables('dbAccountName')]",
       "location": "[resourceGroup().location]",
       "properties": {
@@ -76,7 +76,7 @@
       }
     },
     {
-      "type": "Microsoft.Web/Sites",
+      "type": "Microsoft.Web/sites",
       "apiVersion": "2015-08-01",
       "name": "[parameters('webAppName')]",
       "location": "[resourceGroup().location]",
@@ -113,20 +113,10 @@
               "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]": "Resource",
               "displayName": "moqmail-api"
           },
-        "properties": {
-          "name": "[variables('moqmail-apiName')]",
-          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]",
-          "appSettings": [
-            {
-              "Name": "DOCUMENTDB_ENDPOINT",
-              "Value": "[reference(concat('Microsoft.DocumentDb/databaseAccounts/', variables('dbAccountName'))).documentEndpoint]"
-            },
-            {
-              "Name": "DOCUMENTDB_PRIMARY_KEY",
-              "Value": "[listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', variables('dbAccountName')), '2015-04-08').primaryMasterKey]"
-            }
-          ]
-        }
+          "properties": {
+              "name": "[variables('moqmail-apiName')]",
+              "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]"
+          }
       },
       {
           "name": "[variables('moqMailStorageAccountName')]",
