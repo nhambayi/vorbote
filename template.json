@@ -46,10 +46,6 @@
         "Premium_LRS"
       ]
     },
-      "planName": {
-          "type": "string",
-          "minLength": 1
-      },
       "planSKU": {
           "type": "string",
           "allowedValues": [
@@ -97,7 +93,7 @@
         "displayName": "appServicePlan"
       },
       "properties": {
-        "name": "[parameters('planName')]",
+        "name": "[parameters('appSvcPlanName')]",
         "sku": "[parameters('planSKU')]",
         "workerSize": "[parameters('planWorkerSize')]",
         "numberOfWorkers": 1
