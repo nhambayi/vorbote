@@ -45,7 +45,30 @@
         "Standard_RAGRS",
         "Premium_LRS"
       ]
-    }
+    },
+      "planName": {
+          "type": "string",
+          "minLength": 1
+      },
+      "planSKU": {
+          "type": "string",
+          "allowedValues": [
+              "Free",
+              "Shared",
+              "Basic",
+              "Standard"
+          ],
+          "defaultValue": "Free"
+      },
+      "planWorkerSize": {
+          "type": "string",
+          "allowedValues": [
+              "0",
+              "1",
+              "2"
+          ],
+          "defaultValue": "0"
+      }
   },
   "variables": {
     "databaseAccountTier": "Standard",
@@ -65,14 +88,19 @@
       }
     },
     {
-      "type": "Microsoft.Web/serverfarms",
-      "apiVersion": "2015-08-01",
       "name": "[parameters('appSvcPlanName')]",
+      "type": "Microsoft.Web/serverfarms",
       "location": "[resourceGroup().location]",
-      "sku": {
-        "name": "[parameters('svcPlanSize')]",
-        "tier": "[parameters('svcPlanSku')]",
-        "capacity": 1
+      "apiVersion": "2014-06-01",
+      "dependsOn": [ ],
+      "tags": {
+        "displayName": "appServicePlan"
+      },
+      "properties": {
+        "name": "[parameters('planName')]",
+        "sku": "[parameters('planSKU')]",
+        "workerSize": "[parameters('planWorkerSize')]",
+        "numberOfWorkers": 1
       }
     },
     {
@@ -101,50 +129,50 @@
         }
       }
     },
-      {
-          "name": "[variables('moqmail-apiName')]",
-          "type": "Microsoft.Web/sites",
-          "location": "[resourceGroup().location]",
-          "apiVersion": "2015-08-01",
-          "dependsOn": [
-              "[concat('Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]"
-          ],
-          "tags": {
-              "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]": "Resource",
-              "displayName": "moqmail-api"
-          },
-          "properties": {
-              "name": "[variables('moqmail-apiName')]",
-              "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]"
-          }
+    {
+      "name": "[variables('moqmail-apiName')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-08-01",
+      "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]": "Resource",
+        "displayName": "moqmail-api"
       },
-      {
-          "name": "[variables('moqMailStorageAccountName')]",
-          "type": "Microsoft.Storage/storageAccounts",
-          "location": "[resourceGroup().location]",
-          "apiVersion": "2015-06-15",
-          "dependsOn": [ ],
-          "tags": {
-              "displayName": "moqMailStorageAccount"
-          },
-          "properties": {
-              "accountType": "[parameters('moqMailStorageAccountType')]"
-          }
-      },
-      {
-          "name": "moqmail-api-insights",
-          "type": "Microsoft.Insights/components",
-          "location": "Central US",
-          "apiVersion": "2014-04-01",
-          "dependsOn": [
-              "[concat('Microsoft.Web/sites/', variables('moqmail-apiName'))]"
-          ],
-          "tags": {
-              "displayName": "Component moqmail-api-insights"
-          },
-          "properties": {
-              "applicationId": "[variables('moqmail-apiName')]"
-          }
+      "properties": {
+        "name": "[variables('moqmail-apiName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]"
       }
+    },
+    {
+      "name": "[variables('moqMailStorageAccountName')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [ ],
+      "tags": {
+        "displayName": "moqMailStorageAccount"
+      },
+      "properties": {
+        "accountType": "[parameters('moqMailStorageAccountType')]"
+      }
+    },
+    {
+      "name": "moqmail-api-insights",
+      "type": "Microsoft.Insights/components",
+      "location": "Central US",
+      "apiVersion": "2014-04-01",
+      "dependsOn": [
+        "[concat('Microsoft.Web/sites/', variables('moqmail-apiName'))]"
+      ],
+      "tags": {
+        "displayName": "Component moqmail-api-insights"
+      },
+      "properties": {
+        "applicationId": "[variables('moqmail-apiName')]"
+      }
+    }
   ]
 }
