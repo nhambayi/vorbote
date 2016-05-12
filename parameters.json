@@ -1,27 +1,18 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "databaseAccounts_moqmail_db_dev_name": {
-      "value": "moqmail-tst-db-dev"
+    "appSvcPlanName": {
+      "value": "moqmail-test-plan"
     },
-    "databaseAccounts_moqmail_db_dev_name_1": {
-      "value": "moqmail-db-dev"
+    "svcPlanSize": {
+      "value": "F1"
     },
-    "components_moqmail_dev_insights_name": {
-      "value": "moqmail-dev-insights"
+    "svcPlanSku": {
+      "value": "Free"
     },
-    "storageAccounts_vorbotedevstorage_name": {
-      "value": "vorbotedevstorage"
-    },
-    "serverfarms_moqmail_dev_service_name": {
-      "value": "moqmail-dev-service"
-    },
-    "sites_moqmail_dev_web_name": {
-      "value": "moqmail-dev-web"
-    },
-    "sites_vorbote_dev_api_name": {
-      "value": "vorbote-dev-api"
+    "webAppName": {
+      "value": "moqmail-test-app"
     }
   }
 }

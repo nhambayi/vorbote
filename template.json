@@ -2,175 +2,149 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "databaseAccounts_moqmail_db_dev_name": {
-      "defaultValue": null,
-      "type": "SecureString"
+    "appSvcPlanName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the App Service Plan that will host the Web App."
+      }
     },
-    "databaseAccounts_moqmail_db_dev_name_1": {
-      "defaultValue": "moqmail-db-dev",
-      "type": "String"
+    "svcPlanSize": {
+      "type": "string",
+      "defaultValue": "F1",
+      "metadata": {
+        "description": "The instance size of the App Service Plan."
+      }
     },
-    "components_moqmail_dev_insights_name": {
-      "defaultValue": "moqmail-dev-insights",
-      "type": "String"
+    "svcPlanSku": {
+      "type": "string",
+      "allowedValues": [
+        "Free",
+        "Shared",
+        "Basic",
+        "Standard",
+        "Premium"
+      ],
+      "defaultValue": "Free",
+      "metadata": {
+        "description": "The pricing tier of the App Service plan."
+      }
     },
-    "storageAccounts_vorbotedevstorage_name": {
-      "defaultValue": "vorbotedevstorage",
-      "type": "String"
+    "webAppName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the Web App."
+      }
     },
-    "serverfarms_moqmail_dev_service_name": {
-      "defaultValue": "moqmail-dev-service",
-      "type": "String"
-    },
-    "sites_moqmail_dev_web_name": {
-      "defaultValue": "moqmail-dev-web",
-      "type": "String"
-    },
-    "sites_vorbote_dev_api_name": {
-      "defaultValue": "vorbote-dev-api",
-      "type": "String"
+    "moqMailStorageAccountType": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_ZRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Premium_LRS"
+      ]
     }
   },
-  "variables": { },
+  "variables": {
+    "databaseAccountTier": "Standard",
+    "moqmail-apiName": "[concat(parameters('webAppName'), '-api-', uniqueString(resourceGroup().id))]",
+    "moqMailStorageAccountName": "[concat('moqMail-storage-', uniqueString(resourceGroup().id))]",
+    "dbAccountName": "[concat(parameters('webAppName'), '-account-db')]"
+  },
   "resources": [
     {
-      "comments": "Generalized from resource: '/subscriptions/7e9dd63e-f3e2-4b02-8019-01ab96686a6b/resourceGroups/moqmail-dev/providers/Microsoft.DocumentDB/databaseAccounts/moqmail-db-dev'.",
-      "type": "Microsoft.DocumentDB/databaseAccounts",
-      "kind": "DocumentDB",
-      "name": "[parameters('databaseAccounts_moqmail_db_dev_name_1')]",
       "apiVersion": "2015-04-08",
-      "location": "West US",
-      "tags": { },
+      "type": "Microsoft.DocumentDb/databaseAccounts",
+      "name": "[variables('dbAccountName')]",
+      "location": "[resourceGroup().location]",
       "properties": {
-        "databaseAccountOfferType": "Standard",
-        "consistencyPolicy": {
-          "defaultConsistencyLevel": "Session",
-          "maxIntervalInSeconds": 5,
-          "maxStalenessPrefix": 100
-        },
-        "name": "[parameters('databaseAccounts_moqmail_db_dev_name')]"
-      },
-      "dependsOn": [ ]
+        "name": "[variables('dbAccountName')]",
+        "databaseAccountOfferType": "[variables('databaseAccountTier')]"
+      }
     },
     {
-      "comments": "Generalized from resource: '/subscriptions/7e9dd63e-f3e2-4b02-8019-01ab96686a6b/resourceGroups/moqmail-dev/providers/microsoft.insights/components/moqmail-dev-insights'.",
-      "type": "microsoft.insights/components",
-      "kind": "",
-      "name": "[parameters('components_moqmail_dev_insights_name')]",
-      "apiVersion": "2014-04-01",
-      "location": "centralus",
-      "tags": { },
-      "properties": {
-        "ApplicationId": "[parameters('components_moqmail_dev_insights_name')]"
-      },
-      "dependsOn": [ ]
-    },
-    {
-      "comments": "Generalized from resource: '/subscriptions/7e9dd63e-f3e2-4b02-8019-01ab96686a6b/resourceGroups/moqmail-dev/providers/Microsoft.Storage/storageAccounts/vorbotedevstorage'.",
-      "type": "Microsoft.Storage/storageAccounts",
-      "name": "[parameters('storageAccounts_vorbotedevstorage_name')]",
-      "apiVersion": "2015-06-15",
-      "location": "westus",
-      "tags": { },
-      "properties": {
-        "accountType": "Standard_LRS"
-      },
-      "dependsOn": [ ]
-    },
-    {
-      "comments": "Generalized from resource: '/subscriptions/7e9dd63e-f3e2-4b02-8019-01ab96686a6b/resourceGroups/moqmail-dev/providers/Microsoft.Web/serverfarms/moqmail-dev-service'.",
       "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2015-08-01",
+      "name": "[parameters('appSvcPlanName')]",
+      "location": "[resourceGroup().location]",
       "sku": {
-        "name": "S1",
-        "tier": "Standard",
-        "size": "S1",
-        "family": "S",
+        "name": "[parameters('svcPlanSize')]",
+        "tier": "[parameters('svcPlanSku')]",
         "capacity": 1
-      },
-      "name": "[parameters('serverfarms_moqmail_dev_service_name')]",
-      "apiVersion": "2015-08-01",
-      "location": "West US",
-      "properties": {
-        "name": "[parameters('serverfarms_moqmail_dev_service_name')]",
-        "numberOfWorkers": 1
-      },
-      "dependsOn": [ ]
+      }
     },
     {
-      "comments": "Generalized from resource: '/subscriptions/7e9dd63e-f3e2-4b02-8019-01ab96686a6b/resourceGroups/moqmail-dev/providers/Microsoft.Web/sites/moqmail-dev-web'.",
-      "type": "Microsoft.Web/sites",
-      "name": "[parameters('sites_moqmail_dev_web_name')]",
+      "type": "Microsoft.Web/Sites",
       "apiVersion": "2015-08-01",
-      "location": "West US",
-      "tags": {
-        "hidden-related:/subscriptions/7e9dd63e-f3e2-4b02-8019-01ab96686a6b/resourcegroups/moqmail-dev/providers/Microsoft.Web/serverfarms/moqmail-dev-service": "empty"
-      },
-      "properties": {
-        "name": "[parameters('sites_moqmail_dev_web_name')]",
-        "hostNames": [
-          "moqmail-dev-web.azurewebsites.net"
-        ],
-        "enabledHostNames": [
-          "moqmail-dev-web.azurewebsites.net",
-          "moqmail-dev-web.scm.azurewebsites.net"
-        ],
-        "hostNameSslStates": [
-          {
-            "name": "[concat(parameters('sites_moqmail_dev_web_name'),'.azurewebsites.net')]",
-            "sslState": 0,
-            "thumbprint": null,
-            "ipBasedSslState": 0
-          },
-          {
-            "name": "[concat(parameters('sites_moqmail_dev_web_name'),'.scm.azurewebsites.net')]",
-            "sslState": 0,
-            "thumbprint": null,
-            "ipBasedSslState": 0
-          }
-        ],
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_moqmail_dev_service_name'))]"
-      },
+      "name": "[parameters('webAppName')]",
+      "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_moqmail_dev_service_name'))]"
-      ]
+        "[concat('Microsoft.Web/serverFarms/', parameters('appSvcPlanName'))]"
+      ],
+      "properties": {
+        "name": "[parameters('webAppName')]",
+        "serverFarmId": "[parameters('appSvcPlanName')]",
+        "siteConfig": {
+          "phpVersion": "off",
+          "appSettings": [
+            {
+              "Name": "DOCUMENTDB_ENDPOINT",
+              "Value": "[reference(concat('Microsoft.DocumentDb/databaseAccounts/', parameters('databaseAccountName'))).documentEndpoint]"
+            },
+            {
+              "Name": "DOCUMENTDB_PRIMARY_KEY",
+              "Value": "[listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', parameters('databaseAccountName')), '2015-04-08').primaryMasterKey]"
+            }
+          ]
+        }
+      }
     },
-    {
-      "comments": "Generalized from resource: '/subscriptions/7e9dd63e-f3e2-4b02-8019-01ab96686a6b/resourceGroups/moqmail-dev/providers/Microsoft.Web/sites/vorbote-dev-api'.",
-      "type": "Microsoft.Web/sites",
-      "name": "[parameters('sites_vorbote_dev_api_name')]",
-      "apiVersion": "2015-08-01",
-      "location": "West US",
-      "tags": {
-        "hidden-related:/subscriptions/7e9dd63e-f3e2-4b02-8019-01ab96686a6b/resourcegroups/moqmail-dev/providers/Microsoft.Web/serverfarms/moqmail-dev-service": "empty"
-      },
-      "properties": {
-        "name": "[parameters('sites_vorbote_dev_api_name')]",
-        "hostNames": [
-          "vorbote-dev-api.azurewebsites.net"
-        ],
-        "enabledHostNames": [
-          "vorbote-dev-api.azurewebsites.net",
-          "vorbote-dev-api.scm.azurewebsites.net"
-        ],
-        "hostNameSslStates": [
-          {
-            "name": "[concat(parameters('sites_vorbote_dev_api_name'),'.azurewebsites.net')]",
-            "sslState": 0,
-            "thumbprint": null,
-            "ipBasedSslState": 0
+      {
+          "name": "[variables('moqmail-apiName')]",
+          "type": "Microsoft.Web/sites",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-08-01",
+          "dependsOn": [
+              "[concat('Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]"
+          ],
+          "tags": {
+              "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]": "Resource",
+              "displayName": "moqmail-api"
           },
-          {
-            "name": "[concat(parameters('sites_vorbote_dev_api_name'),'.scm.azurewebsites.net')]",
-            "sslState": 0,
-            "thumbprint": null,
-            "ipBasedSslState": 0
+          "properties": {
+              "name": "[variables('moqmail-apiName')]",
+              "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]"
           }
-        ],
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_moqmail_dev_service_name'))]"
       },
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_moqmail_dev_service_name'))]"
-      ]
-    }
+      {
+          "name": "[variables('moqMailStorageAccountName')]",
+          "type": "Microsoft.Storage/storageAccounts",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [ ],
+          "tags": {
+              "displayName": "moqMailStorageAccount"
+          },
+          "properties": {
+              "accountType": "[parameters('moqMailStorageAccountType')]"
+          }
+      },
+      {
+          "name": "moqmail-api-insights",
+          "type": "Microsoft.Insights/components",
+          "location": "Central US",
+          "apiVersion": "2014-04-01",
+          "dependsOn": [
+              "[concat('Microsoft.Web/sites/', variables('moqmail-apiName'))]"
+          ],
+          "tags": {
+              "displayName": "Component moqmail-api-insights"
+          },
+          "properties": {
+              "applicationId": "[variables('moqmail-apiName')]"
+          }
+      }
   ]
 }
