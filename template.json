@@ -87,7 +87,17 @@
         "name": "[parameters('webAppName')]",
         "serverFarmId": "[parameters('appSvcPlanName')]",
         "siteConfig": {
-          "phpVersion": "off"
+          "phpVersion": "off",
+          "appSettings": [
+            {
+              "Name": "DOCUMENTDB_ENDPOINT",
+              "Value": "[reference(concat('Microsoft.DocumentDb/databaseAccounts/', variables('dbAccountName'))).documentEndpoint]"
+            },
+            {
+              "Name": "DOCUMENTDB_PRIMARY_KEY",
+              "Value": "[listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', variables('dbAccountName')), '2015-04-08').primaryMasterKey]"
+            }
+          ]
         }
       }
     },
@@ -106,8 +116,6 @@
         "properties": {
           "name": "[variables('moqmail-apiName')]",
           "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', parameters('appSvcPlanName'))]",
-          "siteConfig\": {": null,
-          "phpVersion": "off",
           "appSettings": [
             {
               "Name": "DOCUMENTDB_ENDPOINT",
@@ -119,7 +127,6 @@
             }
           ]
         }
-          }
       },
       {
           "name": "[variables('moqMailStorageAccountName')]",
