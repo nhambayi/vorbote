@@ -8,7 +8,7 @@ namespace Vorbote
 {
     public interface IResult
     {
-        int StatusCode { get; set; }
+        SmtpStatusCode StatusCode { get; set; }
         string StatusReason { get; set; }
     }
 }

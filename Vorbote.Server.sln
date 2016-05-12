@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Sdk", "Vorbote.Sdk\Vorbote.Sdk.csproj", "{7C404DF7-52D6-48C1-992D-F4D410AED149}"
 EndProject
@@ -34,6 +34,19 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Core", "Vorbote.Core\Vorbote.Core.csproj", "{C919F762-976B-4C82-928C-EA7728C81813}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Core.Tests", "Vorbote.Core.Test\Vorbote.Core.Tests.csproj", "{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{FFAB38C1-1064-442E-9C63-9F47351DB71F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Api.Web", "Vorbote.Api.Web\Vorbote.Api.Web.csproj", "{5A17F4C2-9CA1-49BA-ADD8-41C1FD8C8124}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vorbote.Api.Web.Tests", "Vorbote.Api.Web.Tests\Vorbote.Api.Web.Tests.csproj", "{3DAF0851-28E7-456F-8591-8155233BFD37}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{395149F6-13C4-4E2A-9FAE-A17EF2F2E80E}"
+	ProjectSection(SolutionItems) = preProject
+		CloudServiceDeployScript.ps1 = CloudServiceDeployScript.ps1
+		parameters.json = parameters.json
+		template.json = template.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +110,14 @@ Global
 		{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A17F4C2-9CA1-49BA-ADD8-41C1FD8C8124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A17F4C2-9CA1-49BA-ADD8-41C1FD8C8124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A17F4C2-9CA1-49BA-ADD8-41C1FD8C8124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A17F4C2-9CA1-49BA-ADD8-41C1FD8C8124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DAF0851-28E7-456F-8591-8155233BFD37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DAF0851-28E7-456F-8591-8155233BFD37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DAF0851-28E7-456F-8591-8155233BFD37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DAF0851-28E7-456F-8591-8155233BFD37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,5 +131,7 @@ Global
 		{34BAFE5C-B0CD-4B6C-88C0-68909372A270} = {07E83860-39F3-48F2-9CCA-52F9B33D09B6}
 		{6D374B98-3B0A-4FCA-BD24-BEF78EE83ED7} = {07E83860-39F3-48F2-9CCA-52F9B33D09B6}
 		{15DFFA2C-D007-4BCF-9A65-D4EEE8AEC35F} = {07E83860-39F3-48F2-9CCA-52F9B33D09B6}
+		{5A17F4C2-9CA1-49BA-ADD8-41C1FD8C8124} = {FFAB38C1-1064-442E-9C63-9F47351DB71F}
+		{3DAF0851-28E7-456F-8591-8155233BFD37} = {FFAB38C1-1064-442E-9C63-9F47351DB71F}
 	EndGlobalSection
 EndGlobal

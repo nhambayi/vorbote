@@ -50,7 +50,7 @@ namespace VorboteHostingRole
             // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
             bool result = base.OnStart();
 
-            Trace.TraceInformation("VorboteHostingRole has been started");
+            Trace.TraceInformation("Vorbote Hosting Role has been started");
 
             return result;
         }

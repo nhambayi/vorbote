@@ -1,0 +1,77 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "storageType": {
+          "type": "string",
+          "defaultValue": "Standard_LRS",
+          "allowedValues": [
+              "Standard_LRS",
+              "Standard_ZRS",
+              "Standard_GRS",
+              "Standard_RAGRS",
+              "Premium_LRS"
+          ]
+      },
+      "planName": {
+          "type": "string",
+          "minLength": 1
+      },
+      "planSKU": {
+          "type": "string",
+          "allowedValues": [
+              "Free",
+              "Shared",
+              "Basic",
+              "Standard"
+          ],
+          "defaultValue": "Free"
+      },
+      "planWorkerSize": {
+          "type": "string",
+          "allowedValues": [
+              "0",
+              "1",
+              "2"
+          ],
+          "defaultValue": "0"
+      }
+    
+  },
+  "variables": {
+      "moqmailStorageName": "[concat('moqmailStorage', uniqueString(resourceGroup().id))]"
+    
+  },
+  "resources": [
+      {
+          "name": "[variables('moqmailStorageName')]",
+          "type": "Microsoft.Storage/storageAccounts",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [ ],
+          "tags": {
+              "displayName": "moqmailStorage"
+          },
+        "properties": {
+          "accountType": "[parameters('storageType')]"
+        }
+      },
+      {
+          "name": "[parameters('planName')]",
+          "type": "Microsoft.Web/serverfarms",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2014-06-01",
+          "dependsOn": [ ],
+          "tags": {
+              "displayName": "moqmail-plan"
+          },
+          "properties": {
+              "name": "[parameters('planName')]",
+              "sku": "[parameters('planSKU')]",
+              "workerSize": "[parameters('planWorkerSize')]",
+              "numberOfWorkers": 1
+          }
+      }
+    
+  ]
+}

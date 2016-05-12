@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
+using Vorbote.Providers;
 
 namespace Vorbote.Tests
 {
@@ -17,7 +18,7 @@ namespace Vorbote.Tests
         private Mock<ITransport> _transportMock;
 
         [TestMethod()]
-        public void ReadMessageTestTest()
+        public void ReadMessageTest()
         {
             var responses = new string[]{
                 "From: \"Bob Example\" < bob@example.org >",
@@ -30,7 +31,7 @@ namespace Vorbote.Tests
                 "This is a test message with 5 header fields and 4 lines in the message body.",
                 "Your friend,",
                 "Bob",
-                ".",};
+                "."};
 
             SetResponses(responses);
             
@@ -49,13 +50,15 @@ namespace Vorbote.Tests
         private void SetResponses(params string[] args)
         {
             _responses = new List<string>(args);
-
             _transportMock = new Mock<ITransport>();
+
             _transportMock.Setup(s => s.Read()).Returns(() =>
             {
-                var message = _responses[_counter];
+                return _responses[_counter];
+            })
+            .Callback(() => 
+            {
                 _counter++;
-                return message;
             });
 
             _counter = 0;

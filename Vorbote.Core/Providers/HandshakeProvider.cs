@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Vorbote
+namespace Vorbote.Providers
 {
-    public class HandshakeProvider
+    public class HandshakeProvider : ISmtpSessionProvider
     {
-        public async Task<IResult> RunAsync(SmtpSessionContext context, 
-            CancellationToken cancellationToken = new CancellationToken())
+        public IResult Run(SmtpSessionContext context)
         {
             var transport = context.Transport;
             transport.SendFormat("220 {0} SMTP server ready.", context.ServerName);
@@ -20,7 +19,7 @@ namespace Vorbote
             {
                 var errorResult = new HandshakeResult
                 {
-                    StatusCode = 500,
+                    StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
                     StatusReason = "Unknow Command"
                 };
                 return errorResult;
@@ -30,10 +29,16 @@ namespace Vorbote
 
             var result = new HandshakeResult
             {
-                StatusCode = 250,
+                StatusCode = SmtpStatusCode.OK,
                 RemoteClient = client
             };
             return result;
+        }
+
+        public async Task<IResult> RunAsync(SmtpSessionContext context, 
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return Run(context);
         }
     }
 }

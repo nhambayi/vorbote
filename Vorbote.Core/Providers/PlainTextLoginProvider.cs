@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Vorbote
+namespace Vorbote.Providers
 {
-    public class PlainTextLoginProvider
+    public class PlainTextLoginProvider : ISmtpSessionProvider
     {
         public async Task<IResult> RunAsync(SmtpSessionContext context,
             CancellationToken cancellationToken = new CancellationToken())
@@ -34,9 +34,11 @@ namespace Vorbote
 
                 if (isValid)
                 {
+                    transport.Send(SmtpStatusCode.OK, "Go Ahead");
+
                     var result = new UserAuthenticationResult
                     {
-                        StatusCode = 200,
+                        StatusCode =  SmtpStatusCode.OK,
                         StatusReason = "User Authenticated",
                         Username = username,
                         MailBox = null
@@ -45,9 +47,10 @@ namespace Vorbote
                 }
                 else
                 {
+                    transport.Send(SmtpStatusCode.MAILBOX_NOT_FOUND, "Bad username of password");
                     var errorResult = new UserAuthenticationResult
                     {
-                        StatusCode = 400,
+                        StatusCode = SmtpStatusCode.MAILBOX_NOT_FOUND,
                         StatusReason = "Bad Username or Password",
                         Username = username,
                         MailBox = null
@@ -57,14 +60,14 @@ namespace Vorbote
             }
             else
             {
+                transport.Send(SmtpStatusCode.UNKNOWN_COMMAND, "Unknow Command");
                 var errorResult = new UserAuthenticationResult
                 {
-                    StatusCode = 500,
+                    StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
                     StatusReason = "Unknow Command",
                     Username = null,
                     MailBox = null
                 };
-
                 return errorResult;
             }
         }

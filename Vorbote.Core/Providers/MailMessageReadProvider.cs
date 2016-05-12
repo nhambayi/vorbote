@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Vorbote
+namespace Vorbote.Providers
 {
-    public class MailMessageReadProvider
+    public class MailMessageReadProvider : ISmtpSessionProvider
     {
-        public async Task<IResult> RunAsync(SmtpSessionContext context, 
-            CancellationToken cancellationToken = new CancellationToken())
+        public IResult Run(SmtpSessionContext context)
         {
             var transport = context.Transport;
             int counter = 0;
@@ -25,9 +24,10 @@ namespace Vorbote
 
                 if (counter == 1000000)
                 {
+                    transport.Send(SmtpStatusCode.INSUFFICIENT_STORAGE, "MESSAGE TO LARGE");
                     var errorResult = new MessageProcessingResult
                     {
-                        StatusCode = 500,
+                        StatusCode = SmtpStatusCode.LOCAL_PROCESSING_ERROR,
                         StatusReason = "Message size exceeds limit"
                     };
 
@@ -35,13 +35,20 @@ namespace Vorbote
                 }
             }
 
-            transport.Send("250 OK");
+            transport.Send(SmtpStatusCode.OK, "OK");
+
             var result = new MessageProcessingResult
             {
-                StatusCode = 250,
+                StatusCode = SmtpStatusCode.OK,
                 StatusReason = "Message recieved"
             };
             return result;
+        }
+
+        public async Task<IResult> RunAsync(SmtpSessionContext context, 
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return Run(context);
         }
     }
 }

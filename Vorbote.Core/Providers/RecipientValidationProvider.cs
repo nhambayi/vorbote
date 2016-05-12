@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Vorbote
+namespace Vorbote.Providers
 {
-    public class RecipientValidationProvider
+    public class RecipientValidationProvider : ISmtpSessionProvider
     {
         public async Task<IResult> RunAsync(SmtpSessionContext context,
             CancellationToken cancellationToken = new CancellationToken())
@@ -21,9 +21,10 @@ namespace Vorbote
             {
                 if (!recipientMessage.StartsWith("RCPT TO:"))
                 {
+                    transport.Send(SmtpStatusCode.UNKNOWN_COMMAND, "UNKNOW COMMAND");
                     var errorResult = new RecipientValidationResult
                     {
-                        StatusCode = 500,
+                        StatusCode = SmtpStatusCode.UNKNOWN_COMMAND,
                         StatusReason = "UNKNOW COMMAND"
                     };
                     return errorResult;
@@ -45,7 +46,7 @@ namespace Vorbote
 
             var result = new RecipientValidationResult
             {
-                StatusCode = 250,
+                StatusCode = SmtpStatusCode.OK,
                 StatusReason = "ACCEPTED",
                 Recipients = recipients
             };

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Vorbote.Providers;
 
 namespace Vorbote.Core.Tests
 {
@@ -26,7 +27,7 @@ namespace Vorbote.Core.Tests
             var result = provider.RunAsync(context).Result as SenderValidationResult;
 
             Assert.IsNotNull(result, "Response is of the incorrect type");
-            Assert.AreEqual(200, result.StatusCode);
+            Assert.AreEqual(SmtpStatusCode.OK, result.StatusCode);
         }
 
         [TestMethod]
@@ -48,7 +49,7 @@ namespace Vorbote.Core.Tests
             var result = provider.RunAsync(context).Result as SenderValidationResult;
 
             Assert.IsNotNull(result, "Response is of the incorrect type");
-            Assert.AreEqual(400, result.StatusCode);
+            Assert.AreEqual(SmtpStatusCode.MAILBOX_NOT_FOUND, result.StatusCode);
         }
 
         [TestMethod]
@@ -66,7 +67,7 @@ namespace Vorbote.Core.Tests
             var result = provider.RunAsync(context).Result as SenderValidationResult;
 
             Assert.IsNotNull(result, "Response is of the incorrect type");
-            Assert.AreEqual(500, result.StatusCode);
+            Assert.AreEqual(SmtpStatusCode.UNKNOWN_COMMAND, result.StatusCode);
         }
 
 
