@@ -5,14 +5,8 @@
     "planName": {
       "value": "moqmail-test-plan"
     },
-    "planSize": {
-      "value": "F1"
-    },
     "planSku": {
       "value": "Free"
-    },
-    "webAppName": {
-      "value": "moqmail-test-app"
     }
   }
 }
